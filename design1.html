@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hélios Junior Conseil | Résilience Climatique & Bilan Carbone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables CSS pour l'identité visuelle */
+        :root {
+            --primary-dark: #166534; /* Vert forêt - Sérieux, Nature */
+            --primary-light: #10B981; /* Vert émeraude - Action, Dynamisme */
+            --bg-light: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-muted: #475569;
+            --white: #FFFFFF;
+        }
+
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-light);
+        }
+
+        .btn-cta {
+            background-color: var(--primary-light);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 12rem 5% 8rem 5%;
+            background: linear-gradient(135deg, rgba(22, 101, 52, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%);
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        /* Section À Propos */
+        .about {
+            padding: 5rem 5%;
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 3rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .ensip-tag {
+            display: inline-block;
+            background-color: #E2E8F0;
+            color: var(--text-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Services */
+        .services {
+            padding: 5rem 5%;
+            background-color: var(--bg-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--primary-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 5%;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .btn-cta-light {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-cta-light:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0F172A;
+            color: #94A3B8;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">Hélios<span>.</span></a>
+            <a href="#contact" class="btn-cta">Démarrer votre bilan</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Transformez vos défis climatiques en opportunités durables</h1>
+        <p>Hélios Junior Conseil accompagne les entreprises privées et publiques vers la résilience. L'expertise des ingénieurs de demain au service de votre transition écologique.</p>
+        <a href="#services" class="btn-cta">Découvrir notre expertise</a>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <span class="ensip-tag">Pôle Étudiant ENSIP</span>
+                <h2>Qui sommes-nous ?</h2>
+                <p>Hélios Junior Conseil est une association dynamique tenue par les étudiants de l'<strong>École Nationale Supérieure d'Ingénieurs de Poitiers (ENSIP)</strong>. Parfaitement intégrée dans la direction environnementale de l'école, notre équipe allie rigueur scientifique, outils de pointe et conscience écologique.</p>
+                <br>
+                <p>Nous mettons à disposition de nos partenaires un savoir-faire technique et innovant pour répondre aux urgences climatiques actuelles.</p>
+            </div>
+            <div class="about-image">
+                <div style="background-color: #E2E8F0; width: 100%; height: 300px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                    [Image : Photo d'équipe ENSIP / Locaux]
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Nos Domaines d'Action</h2>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <h3>Calcul d'Empreinte Carbone</h3>
+                    <p>Quantifiez précisément les émissions de gaz à effet de serre (GES) de votre structure. Nous réalisons des bilans carbones complets pour identifier vos postes d'émissions les plus critiques et établir une base solide pour votre stratégie climat.</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>Schéma de Résilience Climatique</h3>
+                    <p>Anticipez les risques physiques et de transition liés au changement climatique. Nous planifions avec vous une stratégie d'adaptation sur-mesure pour garantir la pérennité et la compétitivité de vos activités sur le long terme.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Prêt à réduire votre impact ?</h2>
+            <p>Si vous souhaitez réaliser un calcul d'empreinte carbone pour votre entreprise et voir comment l'améliorer, notre équipe est prête à vous accompagner.</p>
+            <a href="mailto:contact@helios-junior-conseil.fr" class="btn-cta-light">Contactez-nous dès aujourd'hui</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Hélios Junior Conseil - ENSIP. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

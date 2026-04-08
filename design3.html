@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hélios Junior Conseil | Résilience Climatique ENSIP</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================= VARIABLES DE COULEURS (Thème Bleu Climat) ================= */
+        :root {
+            --bleu-profond: #0A2540; /* Confiance, Ingénierie, Rigueur */
+            --bleu-helios: #0052CC; /* Le bleu de votre logo (ajustable) */
+            --bleu-ciel: #00D4FF; /* Environnement, Air, Climat */
+            --blanc-pur: #FFFFFF;
+            --gris-clair: #F3F9FF;
+            --texte-sombre: #1E293B;
+        }
+
+        /* ================= BASE ET RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth; /* Défilement fluide */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-clair);
+            color: var(--texte-sombre);
+            overflow-x: hidden;
+        }
+
+        /* ================= ANIMATIONS CSS ================= */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.6); }
+            100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
+        }
+
+        .anime-fade {
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* ================= HEADER (Logo + Menu + Recherche) ================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); /* Effet verre dépoli très moderne */
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 82, 204, 0.08);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        /* C'est ici que vous placerez le lien exact de "LogoBleuAll.png" */
+        .logo-img {
+            height: 50px; /* Taille optimale pour ne pas déformer votre logo */
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bleu-profond);
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        /* Animation au survol des liens du menu (soulignement bleu) */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--bleu-helios);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--bleu-helios), var(--bleu-ciel));
+            color: var(--blanc-pur);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: glow 3s infinite;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* ================= HERO SECTION (Haut de page) ================= */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu-helios) 100%);
+            position: relative;
+            color: var(--blanc-pur);
+            padding: 0 5%;
+            overflow: hidden;
+        }
+
+        /* Bulles d'oxygène/eau animées en fond (Rappel environnemental) */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 8s infinite linear;
+        }
+        .bubble:nth-child(1) { width: 100px; height: 100px; left: 10%; bottom: -100px; animation-duration: 10s; }
+        .bubble:nth-child(2) { width: 50px; height: 50px; left: 80%; bottom: -50px; animation-duration: 6s; }
+        .bubble:nth-child(3) { width: 150px; height: 150px; left: 40%; bottom: -150px; animation-duration: 12s; }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2rem;
+        }
+
+        /* ================= SECTION : MOT DU PRÉSIDENT ================= */
+        .about-section {
+            padding: 6rem 5%;
+            background-color: var(--blanc-pur);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--bleu-profond);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .president-sign {
+            margin-top: 2rem;
+            font-weight: 700;
+            color: var(--bleu-helios);
+            font-size: 1.2rem;
+        }
+
+        .floating-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,82,204,0.1));
+            border-radius: 20px;
+            border: 2px dashed var(--bleu-helios);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 6s ease-in-out infinite; /* Animation de flottaison */
+        }
+
+        /* ================= SECTION : NOS EXPERTISES ================= */
+        .services {
+            padding: 6rem 5%;
+            background-color: var(--gris-clair);
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 2.5rem;
+            color: var(--bleu-profond);
+            margin-bottom: 3rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--blanc-pur);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond au survol */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ligne bleue décorative en haut de la carte */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--bleu-helios), var(--bleu-ciel));
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 82, 204, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            color: var(--bleu-profond);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: var(--bleu-profond);
+            color: white;
+            text-align: center;
+            padding: 3rem 5%;
+        }
+
+        footer p {
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; /* Menu burger à implémenter pour mobile */ }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container">
+            <img src="https://via.placeholder.com/150x50/0052CC/FFFFFF?text=Logo+H%C3%A9lios" alt="Logo Hélios Junior Conseil" class="logo-img">
+        </a>
+        
+        <div class="nav-links">
+            <a href="#accueil">Accueil</a>
+            <a href="#about">Le Mot du Président</a>
+            <a href="#expertises">Nos Expertises</a>
+            <a href="#contact" class="btn-action">Nous Contacter</a>
+        </div>
+    </header>
+
+    <section class="hero" id="accueil">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+
+        <div class="hero-content anime-fade">
+            <h1>L'Ingénierie pour la Résilience Climatique</h1>
+            <p class="anime-fade delay-1">Hélios Junior Conseil vous accompagne dans vos défis environnementaux. Lancée en 2024, notre équipe d'étudiants de l'ENSIP met ses compétences au service de votre transition écologique.</p>
+            <div class="anime-fade delay-2">
+                <a href="#expertises" class="btn-action" style="font-size: 1.1rem;">Découvrir nos solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-text anime-fade">
+                <h2>L'Identité de notre École au service de l'Environnement</h2>
+                <p>"Une junior entreprise reflète bien souvent l'identité de son école. Il nous semblait donc essentiel de faire d'Hélios une structure résolument engagée dans les enjeux environnementaux, aujourd'hui au cœur des débats scientifiques."</p>
+                <p>Cette immersion concrète permet à nos étudiants de répondre à vos besoins réels et de relever avec vous les défis de l'adaptation au changement climatique.</p>
+                <div class="president-sign">— Raphaël HERRAIZ, Président</div>
+            </div>
+            <div class="floating-image anime-fade delay-1">
+                <p style="color: var(--bleu-helios); font-weight: 600;">[ Insérez ici la photo de l'équipe ]</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="expertises">
+        <div class="container">
+            <h2 class="anime-fade">Nos Champs d'Action</h2>
+            
+            <div class="service-grid">
+                <div class="service-card anime-fade delay-1">
+                    <div class="service-icon">🌍</div>
+                    <h3>Calcul Carbone</h3>
+                    <p>Accompagnement par nos chargés d'études spécialisés pour quantifier précisément vos émissions de gaz à effet de serre et identifier les leviers de réduction.</p>
+                </div>
+                
+                <div class="service-card anime-fade delay-2">
+                    <div class="service-icon">📊</div>
+                    <h3>Schéma de Résilience</h3>
+                    <p>Anticipation des risques et planification stratégique pour adapter votre entreprise ou collectivité aux changements climatiques à venir.</p>
+                </div>
+                
+                <div class="service-card anime-fade delay-3">
+                    <div class="service-icon">🤝</div>
+                    <h3>Conseil Sur-Mesure</h3>
+                    <p>Bénéficiez du dynamisme de nos pôles (Synthèse, Événementiel, Communication) pour intégrer la transition écologique au cœur de votre activité.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <h2>Ils nous font déjà confiance</h2>
+            <p style="margin: 2rem 0;">(Société Générale, INPB...)</p>
+            <p>&copy; 2026 Hélios Junior Conseil. Par et pour les étudiants de l'ENSIP.</p>
+            <p>Contactez-nous pour votre calcul d'empreinte carbone !</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.anime-fade').forEach((el) => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

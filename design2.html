@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hélios Junior Conseil | Résilience Climatique ENSIP</title>
+    
+    <link rel="icon" href="https://via.placeholder.com/32/1E3A8A/FFFFFF?text=H" type="image/png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variables de couleurs - Thème Bleu Corporate & Ingénierie */
+        :root {
+            --bleu-fonce: #0F172A; /* Bleu nuit profond */
+            --bleu-principal: #1E3A8A; /* Bleu corporate de confiance */
+            --bleu-clair: #3B82F6; /* Bleu dynamique pour les boutons */
+            --fond-gris: #F8FAFC;
+            --texte-sombre: #334155;
+            --texte-clair: #94A3B8;
+            --blanc: #FFFFFF;
+        }
+
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--fond-gris);
+            color: var(--texte-sombre);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, .logo-text {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* En-tête / Header */
+        header {
+            background-color: var(--blanc);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        /* Faux logo visuel en CSS (à remplacer par une balise <img> avec le vrai logo) */
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--bleu-principal), var(--bleu-clair));
+            color: var(--blanc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--bleu-fonce);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--bleu-clair);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Barre de recherche stylisée */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: var(--fond-gris);
+            border: 1px solid #E2E8F0;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--bleu-clair);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-container input {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding-right: 10px;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--texte-sombre);
+        }
+
+        .search-icon {
+            color: var(--bleu-principal);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Bouton principal */
+        .btn-primaire {
+            background-color: var(--bleu-clair);
+            color: var(--blanc);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primaire:hover {
+            background-color: var(--bleu-principal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        /* Section Hero (Accueil) */
+        .hero {
+            background: linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu-principal) 100%);
+            color: var(--blanc);
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Décoration en arrière-plan */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #CBD5E1;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section Services */
+        .services {
+            padding: 6rem 5%;
+            background-color: var(--fond-gris);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--bleu-fonce);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--texte-clair);
+            font-size: 1.1rem;
+        }
+
+        .grid-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .carte-service {
+            background-color: var(--blanc);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-top: 5px solid var(--bleu-clair);
+            transition: transform 0.3s ease;
+        }
+
+        .carte-service:hover {
+            transform: translateY(-10px);
+        }
+
+        .carte-service h3 {
+            font-size: 1.4rem;
+            color: var(--bleu-principal);
+            margin-bottom: 1rem;
+        }
+
+        /* Section Contact */
+        .contact {
+            background-color: var(--blanc);
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .contact-box {
+            background: linear-gradient(135deg, var(--bleu-principal), var(--bleu-fonce));
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            color: var(--blanc);
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
+        }
+
+        .contact-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-blanc {
+            background-color: var(--blanc);
+            color: var(--bleu-principal);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            display: inline-block;
+            margin-top: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-blanc:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bleu-fonce);
+            color: var(--texte-clair);
+            text-align: center;
+            padding: 2rem 5%;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .grid-services { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="header-left">
+            <div class="logo-img">H</div>
+            <div class="logo-text">Hélios<span>.</span></div>
+        </a>
+        
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" placeholder="Rechercher...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <a href="#contact" class="btn-primaire">Contactez-nous</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>L'Ingénierie au Service de la Résilience Climatique</h1>
+            <p>Hélios Junior Conseil, propulsée par les étudiants de l'ENSIP. Nous accompagnons les entreprises privées et publiques dans leur transition écologique avec rigueur et innovation.</p>
+            <a href="#services" class="btn-primaire" style="padding: 1rem 2rem; font-size: 1.1rem;">Découvrir nos solutions</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Notre Expertise Environnementale</h2>
+                <p>Des solutions concrètes basées sur les sciences de l'ingénieur pour répondre aux défis de demain.</p>
+            </div>
+            
+            <div class="grid-services">
+                <div class="carte-service">
+                    <h3>Calcul d'Empreinte Carbone</h3>
+                    <p>Évaluez précisément l'impact de vos activités. Nous identifions vos principaux postes d'émissions de gaz à effet de serre (GES) pour bâtir une stratégie de réduction efficace et mesurable.</p>
+                </div>
+                
+                <div class="carte-service">
+                    <h3>Planification de Résilience</h3>
+                    <p>Anticipez les risques climatiques physiques et transitionnels. Nous élaborons des schémas d'adaptation pour sécuriser votre chaîne de valeur et pérenniser votre activité face aux changements futurs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Passez à l'action dès aujourd'hui</h2>
+                <p>Vous souhaitez réaliser le bilan carbone de votre entreprise et explorer des pistes d'amélioration ? L'équipe d'Hélios Junior Conseil est à votre disposition.</p>
+                <a href="mailto:contact@helios.ensip.fr" class="btn-blanc">Démarrer mon projet</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Hélios Junior Conseil - École Nationale Supérieure d'Ingénieurs de Poitiers (ENSIP). Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

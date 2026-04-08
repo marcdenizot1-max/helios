@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hélios Junior Conseil | ENSIP Poitiers</title>
+    <meta name="description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, bilan carbone et stratégie environnementale.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bleu-encre: #051024;
+            --bleu-helios: #1B4F8A;
+            --blanc-casse: #F9F9F9;
+            --gris-texte: #5A6069;
+            --ligne-fine: rgba(5, 16, 36, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--blanc-casse);
+            color: var(--bleu-encre);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif { font-family: 'Lora', serif; font-weight: 400; }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
+
+        /* Fade-up : état initial */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+                        transform 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Délais de stagger */
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
+        .reveal-d5 { transition-delay: 0.5s; }
+        .reveal-d6 { transition-delay: 0.6s; }
+        .reveal-d7 { transition-delay: 0.7s; }
+        .reveal-d8 { transition-delay: 0.8s; }
+        .reveal-d9 { transition-delay: 0.9s; }
+
+        /* Fade seul (sans translation) */
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+        .reveal-fade.visible { opacity: 1; }
+
+        /* Ligne qui s'étire */
+        .reveal-line {
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-line.visible { transform: scaleX(1); }
+
+        /* Animation hero au chargement */
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-anim-1 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.1s both; }
+        .hero-anim-2 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.35s both; }
+        .hero-anim-3 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.55s both; }
+
+        /* Parallax hero */
+        .hero-image-container img {
+            will-change: transform;
+            transition: filter 0.5s;
+        }
+
+        /* Underline slide nav */
+        .nav-links a:not(.nav-contact-btn) {
+            position: relative;
+        }
+        .nav-links a:not(.nav-contact-btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 100%; height: 1px;
+            background: var(--bleu-helios);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
+        .nav-links a:not(.nav-contact-btn):hover::after { transform: scaleX(1); }
+
+        /* Cursor glow sur le header */
+        header { transition: box-shadow 0.3s; }
+        header.scrolled { box-shadow: 0 2px 24px rgba(5,16,36,0.08); }
+
+        /* ============================================================
+           HEADER / NAV
+        ============================================================ */
+        header {
+            padding: 1.5rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--ligne-fine);
+            background-color: rgba(249,249,249,0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-img { height: 48px; width: auto; }
+
+        .nav-links { display: flex; gap: 3rem; align-items: center; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bleu-encre);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--bleu-helios); }
+
+        .nav-contact-btn {
+            padding: 0.6rem 1.4rem;
+            border: 1.5px solid var(--bleu-encre);
+            border-radius: 2px;
+            transition: background 0.25s, color 0.25s, border-color 0.25s !important;
+        }
+        .nav-contact-btn:hover {
+            background-color: var(--bleu-encre) !important;
+            color: white !important;
+        }
+
+        /* ============================================================
+           HERO
+        ============================================================ */
+        .hero {
+            padding: 7rem 5vw 0;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+            line-height: 1.05;
+            max-width: 750px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 em { font-style: italic; color: var(--bleu-helios); }
+
+        .hero-desc {
+            max-width: 380px;
+            font-size: 1.05rem;
+            color: var(--gris-texte);
+            padding-left: 2rem;
+            border-left: 2px solid var(--bleu-helios);
+            line-height: 1.75;
+        }
+        .hero-desc strong { color: var(--bleu-encre); font-weight: 600; }
+
+        .hero-image-container {
+            width: 100%;
+            height: 58vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-image-container img {
+            width: 100%;
+            height: 115%;
+            object-fit: cover;
+            filter: grayscale(15%) brightness(0.95);
+            transform: translateY(0);
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: 2rem; right: 2rem;
+            background: var(--bleu-encre);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.8s both;
+        }
+
+        /* ============================================================
+           STATS
+        ============================================================ */
+        .stats-bar { display: flex; border-bottom: 1px solid var(--ligne-fine); }
+
+        .stat-item {
+            flex: 1;
+            padding: 3rem 5vw;
+            border-right: 1px solid var(--ligne-fine);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .stat-item:last-child { border-right: none; }
+
+        .stat-number {
+            font-family: 'Lora', serif;
+            font-size: 2.8rem;
+            color: var(--bleu-helios);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--gris-texte);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================================
+           QUOTE
+        ============================================================ */
+        .quote-section {
+            padding: 8rem 5vw;
+            background-color: var(--bleu-encre);
+            color: var(--blanc-casse);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .quote-section .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--bleu-helios);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .quote-section h2 {
+            font-size: clamp(1.6rem, 3.5vw, 3rem);
+            line-height: 1.4;
+            max-width: 860px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .quote-body {
+            max-width: 760px;
+            margin: 2.5rem auto 0;
+            font-size: 1rem;
+            color: rgba(249,249,249,0.65);
+            line-height: 1.8;
+        }
+
+        .quote-author {
+            margin-top: 3rem;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--bleu-helios);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           EXPERTISES
+        ============================================================ */
+        .expertise-section { padding: 8rem 5vw; }
+
+        .section-header {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--bleu-helios);
+            margin-bottom: 4rem;
+            font-weight: 600;
+        }
+
+        .expertise-list { border-top: 1px solid var(--ligne-fine); }
+
+        .expertise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 3.5rem 1rem 3.5rem 0;
+            border-bottom: 1px solid var(--ligne-fine);
+            transition: padding-left 0.4s cubic-bezier(.22,1,.36,1),
+                        background-color 0.4s ease;
+            cursor: default;
+        }
+        .expertise-item:hover { padding-left: 2rem; background-color: white; }
+
+        .expertise-number {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            color: var(--bleu-helios);
+            width: 8%;
+            padding-top: 0.5rem;
+        }
+
+        .expertise-content {
+            width: 88%;
+            display: flex;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .expertise-content h3 { font-size: 2.2rem; width: 40%; line-height: 1.15; }
+
+        .expertise-content .expertise-desc {
+            width: 50%;
+            color: var(--gris-texte);
+            font-size: 1rem;
+            line-height: 1.8;
+            padding-top: 0.5rem;
+        }
+
+        .expertise-tag {
+            display: inline-block;
+            margin-top: 1.2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--bleu-helios);
+            border-bottom: 1px solid var(--bleu-helios);
+            padding-bottom: 2px;
+            transition: letter-spacing 0.25s;
+        }
+        .expertise-item:hover .expertise-tag { letter-spacing: 2.5px; }
+
+        /* ============================================================
+           MÉTHODOLOGIE
+        ============================================================ */
+        .methodo-section {
+            padding: 8rem 5vw;
+            background-color: white;
+            border-top: 1px solid var(--ligne-fine);
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+
+        .methodo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 4rem;
+            border-left: 1px solid var(--ligne-fine);
+        }
+
+        .methodo-step {
+            padding: 3rem 2.5rem;
+            border-right: 1px solid var(--ligne-fine);
+            transition: background 0.3s;
+        }
+        .methodo-step:hover { background: var(--blanc-casse); }
+
+        .methodo-step-num {
+            font-family: 'Lora', serif;
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            color: rgba(5,16,36,0.1);
+            transition: color 0.3s;
+        }
+        .methodo-step:hover .methodo-step-num { color: var(--bleu-helios); }
+
+        .methodo-step h4 {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .methodo-step p { font-size: 0.9rem; color: var(--gris-texte); line-height: 1.7; }
+
+        /* ============================================================
+           ÉQUIPE
+        ============================================================ */
+        .team-section {
+            padding: 8rem 5vw;
+            background-color: var(--blanc-casse);
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+
+        .team-poles {
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+            margin-top: 4rem;
+        }
+
+        .team-pole {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5vw;
+            align-items: center;
+            border-top: 1px solid var(--ligne-fine);
+            padding-top: 4rem;
+        }
+
+        .team-pole:nth-child(even) .team-pole-photo { order: 2; }
+        .team-pole:nth-child(even) .team-pole-info  { order: 1; }
+
+        .team-pole-photo {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .team-pole-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+        }
+        .team-pole:hover .team-pole-photo img { transform: scale(1.03); }
+
+        .team-pole-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .team-pole-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--bleu-helios);
+            font-weight: 600;
+        }
+
+        .team-members {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .team-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--ligne-fine);
+            transition: padding-left 0.3s cubic-bezier(.22,1,.36,1);
+        }
+        .team-member:first-child { border-top: 1px solid var(--ligne-fine); }
+        .team-member:hover { padding-left: 0.8rem; }
+
+        .team-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--bleu-encre);
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+            color: var(--gris-texte);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        /* ============================================================
+           PARTENAIRES
+        ============================================================ */
+        .partners-section {
+            padding: 6rem 5vw;
+            border-bottom: 1px solid var(--ligne-fine);
+            background: white;
+        }
+
+        .partners-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 3rem 5rem;
+            margin-top: 4rem;
+        }
+
+        .partners-grid img {
+            height: 45px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: filter 0.4s, opacity 0.4s, transform 0.3s;
+        }
+        .partners-grid img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer { padding: 5rem 5vw 3rem; background-color: white; }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.15;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--bleu-helios);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s, transform 0.25s;
+        }
+        .btn-contact:hover { background-color: var(--bleu-encre); transform: translateY(-2px); }
+
+        .footer-info {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1.5rem;
+        }
+
+        .footer-logos { display: flex; align-items: center; gap: 2rem; }
+        .footer-logos img { height: 42px; width: auto; object-fit: contain; }
+
+        .footer-social { display: flex; gap: 1.2rem; }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px; height: 38px;
+            border: 1px solid var(--ligne-fine);
+            border-radius: 50%;
+            text-decoration: none;
+            color: var(--bleu-encre);
+            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.25s;
+        }
+        .footer-social a:hover {
+            border-color: var(--bleu-helios);
+            background: var(--bleu-helios);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-bottom p { font-size: 0.8rem; color: var(--gris-texte); }
+
+        .footer-nav { display: flex; gap: 2rem; }
+        .footer-nav a {
+            font-size: 0.8rem;
+            color: var(--gris-texte);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .footer-nav a:hover { color: var(--bleu-helios); }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 1200px) {
+            .methodo-grid { grid-template-columns: repeat(2, 1fr); }
+            .methodo-step:nth-child(2) { border-right: none; }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-top { flex-direction: column; align-items: flex-start; gap: 3rem; }
+            .hero-desc { border-left: none; padding-left: 0; border-top: 2px solid var(--bleu-helios); padding-top: 1.2rem; max-width: 100%; }
+            .expertise-content { flex-direction: column; gap: 1.5rem; }
+            .expertise-content h3, .expertise-content .expertise-desc { width: 100%; }
+            .footer-top { flex-direction: column; gap: 3rem; }
+            .footer-info { text-align: left; align-items: flex-start; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .stats-bar { flex-wrap: wrap; }
+            .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid var(--ligne-fine); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .methodo-grid { grid-template-columns: 1fr; }
+            .methodo-step { border-right: none; border-bottom: 1px solid var(--ligne-fine); }
+            .partners-grid { gap: 2rem 3rem; }
+            .team-pole { grid-template-columns: 1fr; gap: 2rem; }
+            .team-pole:nth-child(even) .team-pole-photo { order: 0; }
+            .team-pole:nth-child(even) .team-pole-info  { order: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#">
+            <img src="assets/logo-helios.png" alt="Hélios Junior Conseil" class="logo-img">
+        </a>
+        <nav class="nav-links">
+            <a href="#expertises">Expertises</a>
+            <a href="#methode">Méthode</a>
+            <a href="#equipe">Équipe</a>
+            <a href="#partenaires">Références</a>
+            <a href="#contact" class="nav-contact-btn">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-top">
+            <h1 class="hero-anim-1">L'ingénierie étudiante<br>au service de votre<br><em>transition climatique.</em></h1>
+            <p class="hero-desc hero-anim-2">
+                <strong>Hélios Junior Conseil</strong> est la junior-entreprise de l'École Nationale Supérieure d'Ingénieurs de Poitiers. Spécialisée dans l'énergie, l'eau et le génie civil, nous accompagnons entreprises et collectivités dans leur stratégie de résilience climatique.
+            </p>
+        </div>
+        <div class="hero-image-container hero-anim-3" id="heroImg">
+            <img id="parallaxImg" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=2400" alt="Énergie et ingénierie">
+            <div class="hero-badge">Fondée en 2024 · ENSIP Poitiers</div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item reveal reveal-d1">
+            <span class="stat-number" data-target="2024" data-format="year">2024</span>
+            <span class="stat-label">Année de création</span>
+        </div>
+        <div class="stat-item reveal reveal-d2">
+            <span class="stat-number">ADEME</span>
+            <span class="stat-label">Base de données certifiée</span>
+        </div>
+        <div class="stat-item reveal reveal-d3">
+            <span class="stat-number" data-target="3" data-suffix="">3</span>
+            <span class="stat-label">Domaines d'expertise</span>
+        </div>
+        <div class="stat-item reveal reveal-d4">
+            <span class="stat-number" data-target="100" data-suffix="%">100%</span>
+            <span class="stat-label">Encadrement académique ENSIP</span>
+        </div>
+    </div>
+
+    <!-- QUOTE -->
+    <section class="quote-section" id="vision">
+        <p class="section-label reveal reveal-d1">Le mot du Président</p>
+        <h2 class="reveal reveal-d2">"Une junior entreprise reflète bien souvent l'identité de son école. Il nous semblait donc essentiel de faire d'Hélios une structure résolument engagée dans les enjeux environnementaux, aujourd'hui au cœur des débats scientifiques."</h2>
+        <p class="quote-body reveal reveal-d3">Lancée en 2024, notre activité de conseil en résilience climatique offre aux étudiants une immersion concrète dans le monde professionnel, en lien direct avec les entreprises. Cette expérience nous permet d'apprendre à répondre à des besoins réels, à communiquer clairement nos résultats, et à mieux comprendre les défis liés à l'adaptation au changement climatique.</p>
+        <p class="quote-author reveal reveal-d4">Thomas Candau — Président d'Hélios Junior Conseil</p>
+    </section>
+
+    <!-- EXPERTISES -->
+    <section class="expertise-section" id="expertises">
+        <div class="section-header reveal">Domaines d'intervention</div>
+        <div class="expertise-list">
+            <div class="expertise-item reveal reveal-d1">
+                <div class="expertise-number">01</div>
+                <div class="expertise-content">
+                    <h3>Bilan<br>Carbone</h3>
+                    <div class="expertise-desc">
+                        <p>Nous collaborons avec des entreprises souhaitant réduire leur empreinte carbone et mieux comprendre les sources qui la composent. L'ensemble des émissions est quantifié secteur par secteur, en nous appuyant sur la base de données <strong>BASE EMPREINTE de l'ADEME</strong>. Les résultats sont restitués dans un rapport détaillé accompagné de recommandations concrètes.</p>
+                        <span class="expertise-tag">Demander un devis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expertise-item reveal reveal-d2">
+                <div class="expertise-number">02</div>
+                <div class="expertise-content">
+                    <h3>Schéma de<br>Résilience</h3>
+                    <div class="expertise-desc">
+                        <p>Analyse des risques climatiques physiques et de transition auxquels votre organisation est exposée. Nous co-construisons des stratégies d'adaptation concrètes pour pérenniser vos activités et anticiper les impacts du changement climatique sur votre chaîne de valeur.</p>
+                        <span class="expertise-tag">En savoir plus</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expertise-item reveal reveal-d3">
+                <div class="expertise-number">03</div>
+                <div class="expertise-content">
+                    <h3>Conseil<br>Stratégique</h3>
+                    <div class="expertise-desc">
+                        <p>Immersion au cœur de vos besoins réels. Nos étudiants apportent un regard neuf et des solutions techniques fondées sur les dernières avancées académiques de l'ENSIP, au service d'entreprises privées et de collectivités publiques engagées dans leur transition environnementale.</p>
+                        <span class="expertise-tag">Discuter de votre projet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÉTHODOLOGIE -->
+    <section class="methodo-section" id="methode">
+        <div class="section-header reveal">Notre démarche</div>
+        <div class="methodo-grid">
+            <div class="methodo-step reveal reveal-d1">
+                <div class="methodo-step-num">01</div>
+                <h4>Visite de site</h4>
+                <p>Nous commençons par une visite du site concerné afin d'appréhender au mieux le fonctionnement de votre organisation et d'identifier les postes d'émissions les plus significatifs.</p>
+            </div>
+            <div class="methodo-step reveal reveal-d2">
+                <div class="methodo-step-num">02</div>
+                <h4>Collecte des données</h4>
+                <p>Nous transmettons un questionnaire structuré, conçu par notre équipe, regroupant toutes les données nécessaires à l'évaluation de votre empreinte environnementale.</p>
+            </div>
+            <div class="methodo-step reveal reveal-d3">
+                <div class="methodo-step-num">03</div>
+                <h4>Analyse & calcul</h4>
+                <p>Les émissions sont calculées secteur par secteur en référence à la base de données BASE EMPREINTE de l'ADEME, garantissant une méthodologie certifiée et reconnue.</p>
+            </div>
+            <div class="methodo-step reveal reveal-d4">
+                <div class="methodo-step-num">04</div>
+                <h4>Restitution & plan d'action</h4>
+                <p>Un rapport détaillé est remis, accompagné de recommandations concrètes et priorisées pour réduire les émissions identifiées et engager une trajectoire de décarbonation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÉQUIPE -->
+    <section class="team-section" id="equipe">
+        <div class="section-header reveal">Notre équipe</div>
+
+        <div class="team-poles">
+
+            <!-- Pôle Bureau -->
+            <div class="team-pole reveal">
+                <div class="team-pole-photo reveal reveal-d1">
+                    <img src="assets/team-photo1.png" alt="Pôle Bureau — Hélios Junior Conseil">
+                </div>
+                <div class="team-pole-info reveal reveal-d2">
+                    <div class="team-pole-title">Pôle Bureau</div>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <span class="team-name">Thomas Candau</span>
+                            <span class="team-role">Président</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="team-name">Clarence Abrial</span>
+                            <span class="team-role">Trésorière</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="team-name">Hiba Habounadi</span>
+                            <span class="team-role">Secrétaire</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pôle Technico-Commercial -->
+            <div class="team-pole reveal">
+                <div class="team-pole-photo reveal reveal-d1">
+                    <img src="assets/team-photo2.png" alt="Pôle Technico-Commercial — Hélios Junior Conseil">
+                </div>
+                <div class="team-pole-info reveal reveal-d2">
+                    <div class="team-pole-title">Pôle Technico-Commercial</div>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <span class="team-name">Flavie Dupreys</span>
+                            <span class="team-role">Technico-commerciale</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="team-name">Nathan Desgris</span>
+                            <span class="team-role">Technico-commercial</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="team-name">Corentin Lacaille</span>
+                            <span class="team-role">Technico-commercial</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pôle Communication -->
+            <div class="team-pole reveal">
+                <div class="team-pole-photo reveal reveal-d1">
+                    <img src="assets/team-photo3.png" alt="Pôle Communication — Hélios Junior Conseil">
+                </div>
+                <div class="team-pole-info reveal reveal-d2">
+                    <div class="team-pole-title">Pôle Communication</div>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <span class="team-name">Azhar Turmukhambetova</span>
+                            <span class="team-role">Chargée de communication</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="team-name">Morgane Carfantan</span>
+                            <span class="team-role">Chargée de communication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pôle Évènementiel -->
+            <div class="team-pole reveal">
+                <div class="team-pole-photo reveal reveal-d1" style="max-width:360px;">
+                    <img src="assets/team-photo4.png" alt="Pôle Évènementiel — Hélios Junior Conseil">
+                </div>
+                <div class="team-pole-info reveal reveal-d2">
+                    <div class="team-pole-title">Pôle Évènementiel</div>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <span class="team-name">Marine Civel</span>
+                            <span class="team-role">Chargée évènementiel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PARTENAIRES -->
+    <section class="partners-section" id="partenaires">
+        <div class="section-header reveal">Ils nous ont fait confiance</div>
+        <div class="partners-grid">
+            <img src="assets/logo-sg.png"       alt="Société Générale"        class="reveal reveal-d1">
+            <img src="assets/logo-partner3.png" alt="Université de Poitiers"  class="reveal reveal-d2">
+            <img src="assets/logo-partner2.png" alt="Département de la Vienne" class="reveal reveal-d3">
+            <img src="assets/logo-inpb.png"     alt="Bordeaux INP Aquitaine"  class="reveal reveal-d4">
+            <img src="assets/logo-partner1.png" alt="Université partenaire"   class="reveal reveal-d5">
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-top">
+            <div class="footer-cta reveal">
+                <h2>Prêt à évaluer votre impact carbone ?</h2>
+                <a href="mailto:contact@helios-juniorconseil.com" class="btn-contact">Démarrer une étude</a>
+            </div>
+            <div class="footer-info reveal reveal-d2">
+                <div class="footer-logos">
+                    <img src="assets/logo-helios.png" alt="Hélios Junior Conseil">
+                    <img src="assets/logo-ensip.webp" alt="ENSIP Poitiers">
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/helios-jconseil/" target="_blank" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/ensip.helios/" target="_blank" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                    </a>
+                </div>
+                <p style="font-size:0.82rem;color:var(--gris-texte);">contact@helios-juniorconseil.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 — Hélios Junior Conseil · École Nationale Supérieure d'Ingénieurs de Poitiers</p>
+            <nav class="footer-nav">
+                <a href="#expertises">Expertises</a>
+                <a href="#methode">Méthode</a>
+                <a href="#equipe">Équipe</a>
+                <a href="#partenaires">Références</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+    <script>
+    // --- Scroll reveal (Intersection Observer) ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-fade').forEach(el => observer.observe(el));
+
+    // --- Header shadow on scroll ---
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // --- Parallax hero image ---
+    const parallaxImg = document.getElementById('parallaxImg');
+    const heroImgContainer = document.getElementById('heroImg');
+    if (parallaxImg && heroImgContainer) {
+        window.addEventListener('scroll', () => {
+            const rect = heroImgContainer.getBoundingClientRect();
+            if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                const progress = -rect.top / window.innerHeight;
+                parallaxImg.style.transform = `translateY(${progress * 60}px)`;
+            }
+        }, { passive: true });
+    }
+
+    // --- Animated counters ---
+    function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix ?? '';
+        const format = el.dataset.format;
+        if (!target || format === 'year') return; // skip non-numeric or year
+        const duration = 1200;
+        const start = performance.now();
+        const from = 0;
+
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // easeOutQuart
+            const eased = 1 - Math.pow(1 - progress, 4);
+            const value = Math.round(from + (target - from) * eased);
+            el.textContent = value + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+    </script>
+
+</body>
+</html>
