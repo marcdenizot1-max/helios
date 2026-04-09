@@ -61,7 +61,14 @@
         }
         .logo-img { height: 68px; width: auto; transition: transform 0.3s; }
         .logo-img:hover { transform: scale(1.05); }
-        .nav-links { display: flex; gap: 2.8rem; align-items: center; }
+        /* Nav hors du header → libre de tout contexte d'empilement */
+        .nav-links {
+            display: flex; gap: 2.8rem; align-items: center;
+            position: fixed; top: 0; right: 5vw;
+            height: calc(68px + 2.2rem);
+            z-index: 101;
+            background: transparent;
+        }
         .nav-links a {
             text-decoration: none; color: var(--bleu-encre);
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
@@ -361,13 +368,6 @@
             .sidebar { position: static; }
         }
         @media (max-width: 768px) {
-            /* Supprime le backdrop-filter sur mobile pour éviter le contexte
-               d'empilement iOS qui bloque le menu panel en position:fixed */
-            header {
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                background: var(--blanc-casse);
-            }
             .nav-toggle { display: flex; }
             .nav-links {
                 display: flex !important;
@@ -410,19 +410,21 @@
     <!-- Overlay menu mobile -->
     <div class="nav-overlay" id="navOverlay"></div>
 
+    <!-- Nav hors du header pour éviter le piège de contexte d'empilement iOS -->
+    <nav class="nav-links" id="navLinks">
+        <a href="index.html#expertises">Expertises</a>
+        <a href="index.html#methode">Méthode</a>
+        <a href="index.html#equipe">Équipe</a>
+        <a href="blog.html" class="active">Blog</a>
+        <a href="#discussion">Discussion</a>
+        <a href="index.html#contact" class="nav-contact-btn">Contact</a>
+    </nav>
+
     <!-- HEADER -->
     <header id="hdr">
         <a href="index.html">
             <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
         </a>
-        <nav class="nav-links" id="navLinks">
-            <a href="index.html#expertises">Expertises</a>
-            <a href="index.html#methode">Méthode</a>
-            <a href="index.html#equipe">Équipe</a>
-            <a href="blog.html" class="active">Blog</a>
-            <a href="#discussion">Discussion</a>
-            <a href="index.html#contact" class="nav-contact-btn">Contact</a>
-        </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span>
             <span></span>

@@ -192,7 +192,14 @@
         }
         .logo-img:hover { transform: scale(1.05); }
 
-        .nav-links { display: flex; gap: 2.8rem; align-items: center; }
+        /* Nav hors du header → libre de tout contexte d'empilement */
+        .nav-links {
+            display: flex; gap: 2.8rem; align-items: center;
+            position: fixed; top: 0; right: 5vw;
+            height: calc(68px + 2.2rem);
+            z-index: 101;
+            background: transparent;
+        }
         .nav-links a {
             text-decoration: none;
             color: var(--bleu-encre);
@@ -1036,13 +1043,6 @@
             .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
         }
         @media (max-width: 768px) {
-            /* Supprime le backdrop-filter sur mobile pour éviter le contexte
-               d'empilement iOS qui bloque le menu panel en position:fixed */
-            header {
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                background: var(--blanc-casse);
-            }
             .nav-toggle { display: flex; }
             .nav-links {
                 display: flex !important;
@@ -1114,17 +1114,19 @@
     <!-- Overlay menu mobile -->
     <div class="nav-overlay" id="navOverlay"></div>
 
+    <!-- Nav hors du header pour éviter le piège de contexte d'empilement iOS -->
+    <nav class="nav-links" id="navLinks">
+        <a href="#expertises">Expertises</a>
+        <a href="#methode">Méthode</a>
+        <a href="#equipe">Équipe</a>
+        <a href="blog.html">Blog</a>
+        <a href="#contact" class="nav-contact-btn">Contact</a>
+    </nav>
+
     <header>
         <a href="#">
             <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
         </a>
-        <nav class="nav-links" id="navLinks">
-            <a href="#expertises">Expertises</a>
-            <a href="#methode">Méthode</a>
-            <a href="#equipe">Équipe</a>
-            <a href="blog.html">Blog</a>
-            <a href="#contact" class="nav-contact-btn">Contact</a>
-        </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span>
             <span></span>
