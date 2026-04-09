@@ -1036,6 +1036,13 @@
             .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
         }
         @media (max-width: 768px) {
+            /* Supprime le backdrop-filter sur mobile pour éviter le contexte
+               d'empilement iOS qui bloque le menu panel en position:fixed */
+            header {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: var(--blanc-casse);
+            }
             .nav-toggle { display: flex; }
             .nav-links {
                 display: flex !important;
