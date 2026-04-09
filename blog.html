@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Hélios Junior Conseil</title>
+    <meta name="description" content="Actualités, analyses et discussions autour de la résilience climatique, du bilan carbone et du conseil environnemental par Hélios Junior Conseil.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bleu-encre:  #051024;
+            --bleu-helios: #1B4F8A;
+            --blanc-casse: #F9F9F9;
+            --gris-texte:  #5A6069;
+            --ligne-fine:  rgba(5, 16, 36, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--blanc-casse);
+            color: var(--bleu-encre);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; font-weight: 400; }
+
+        /* ---- Scroll progress ---- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, var(--bleu-helios), #4A9EE8);
+            width: 0%; z-index: 1001;
+        }
+
+        /* ---- Animations ---- */
+        .reveal {
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+
+        /* ---- Nav/Header ---- */
+        header.scrolled { box-shadow: 0 2px 24px rgba(5,16,36,0.08); }
+        header {
+            padding: 1.1rem 5vw;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--ligne-fine);
+            background: rgba(249,249,249,0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+            transition: box-shadow 0.3s;
+        }
+        .logo-img { height: 68px; width: auto; transition: transform 0.3s; }
+        .logo-img:hover { transform: scale(1.05); }
+        .nav-links { display: flex; gap: 2.8rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--bleu-encre);
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 600; transition: color 0.2s; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 100%; height: 1px; background: var(--bleu-helios);
+            transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
+        }
+        .nav-links a:hover { color: var(--bleu-helios); }
+        .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+        .nav-links a.active { color: var(--bleu-helios); }
+        .nav-contact-btn {
+            padding: 0.6rem 1.4rem; border: 1.5px solid var(--bleu-encre);
+            border-radius: 2px; transition: background 0.25s, color 0.25s !important;
+        }
+        .nav-contact-btn:hover { background: var(--bleu-encre) !important; color: white !important; }
+        .nav-contact-btn::after { display: none !important; }
+
+        /* ---- Blog hero ---- */
+        .blog-hero {
+            padding: 6rem 5vw 5rem;
+            border-bottom: 1px solid var(--ligne-fine);
+            background: white;
+        }
+        .blog-hero-label {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--bleu-helios); font-weight: 600; margin-bottom: 2rem;
+        }
+        .blog-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.08; letter-spacing: -1px;
+            max-width: 700px; margin-bottom: 1.5rem;
+        }
+        .blog-hero p {
+            max-width: 540px; color: var(--gris-texte);
+            font-size: 1.05rem; line-height: 1.75;
+        }
+
+        /* ---- Main layout ---- */
+        .blog-main {
+            padding: 6rem 5vw;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        /* ---- Articles ---- */
+        .articles-list { display: flex; flex-direction: column; gap: 0; }
+
+        .article-card {
+            border-top: 1px solid var(--ligne-fine);
+            padding: 4rem 0;
+        }
+        .article-card:last-child { border-bottom: 1px solid var(--ligne-fine); }
+
+        .article-meta {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .article-tag {
+            font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; color: var(--bleu-helios);
+        }
+        .article-date { font-size: 0.78rem; color: var(--gris-texte); }
+        .article-sep { color: var(--ligne-fine); }
+
+        .article-card h2 {
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            line-height: 1.2; margin-bottom: 1.2rem;
+            cursor: pointer; transition: color 0.25s;
+        }
+        .article-card h2:hover { color: var(--bleu-helios); }
+
+        .article-intro {
+            font-size: 1rem; color: var(--gris-texte);
+            line-height: 1.8; margin-bottom: 2rem;
+            max-width: 680px;
+        }
+
+        /* Article expand / collapse */
+        .article-body {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .article-body.open { max-height: 3000px; }
+        .article-body-inner {
+            padding-top: 2rem;
+            border-top: 1px solid var(--ligne-fine);
+        }
+        .article-body-inner p {
+            font-size: 1rem; line-height: 1.85;
+            color: var(--gris-texte); margin-bottom: 1.5rem;
+        }
+        .article-body-inner p:last-child { margin-bottom: 0; }
+        .article-body-inner h3 {
+            font-size: 1.25rem; margin: 2rem 0 1rem;
+            color: var(--bleu-encre);
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.5rem 1.5rem; color: var(--gris-texte);
+            font-size: 0.95rem; line-height: 1.8;
+        }
+
+        .btn-read {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--bleu-helios);
+            background: none; border: none; cursor: pointer;
+            padding: 0; transition: gap 0.3s, color 0.25s; font-family: 'Manrope', sans-serif;
+        }
+        .btn-read:hover { gap: 0.9rem; color: var(--bleu-encre); }
+        .btn-read .arrow { transition: transform 0.3s; display: inline-block; }
+        .btn-read.open .arrow { transform: rotate(90deg); }
+
+        /* ---- Comments ---- */
+        .comments-section {
+            margin-top: 3rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--ligne-fine);
+        }
+        .comments-title {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; color: var(--bleu-encre); margin-bottom: 2rem;
+        }
+        .comments-list { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.5rem; }
+        .comment-item {
+            padding: 1.4rem 1.6rem;
+            background: white;
+            border: 1px solid var(--ligne-fine);
+            border-radius: 2px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+        .comment-item:hover { border-color: rgba(27,79,138,0.2); }
+        .comment-header {
+            display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.6rem;
+        }
+        .comment-author {
+            font-weight: 600; font-size: 0.9rem; color: var(--bleu-encre);
+        }
+        .comment-time { font-size: 0.76rem; color: var(--gris-texte); }
+        .comment-text { font-size: 0.92rem; color: var(--gris-texte); line-height: 1.7; }
+        .no-comments {
+            font-size: 0.9rem; color: var(--gris-texte); font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Comment form */
+        .comment-form { display: flex; flex-direction: column; gap: 1rem; }
+        .comment-form-title {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; color: var(--bleu-helios); margin-bottom: 0.5rem;
+        }
+        .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .cf-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .cf-group label {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 600; color: var(--bleu-encre);
+        }
+        .cf-group input, .cf-group textarea {
+            border: 1px solid var(--ligne-fine); border-radius: 2px;
+            padding: 0.75rem 0.9rem; font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem; color: var(--bleu-encre); background: white;
+            outline: none; transition: border-color 0.25s, box-shadow 0.25s;
+            -webkit-appearance: none;
+        }
+        .cf-group input:focus, .cf-group textarea:focus {
+            border-color: var(--bleu-helios);
+            box-shadow: 0 0 0 3px rgba(27,79,138,0.08);
+        }
+        .cf-group textarea { resize: vertical; min-height: 90px; }
+        .btn-comment {
+            align-self: flex-start; padding: 0.75rem 2rem;
+            background: var(--bleu-helios); color: white; border: none;
+            border-radius: 2px; font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+        .btn-comment:hover {
+            background: var(--bleu-encre); transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27,79,138,0.25);
+        }
+
+        /* ---- Sidebar ---- */
+        .sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 2.5rem; }
+        .sidebar-block {
+            padding: 2rem;
+            background: white;
+            border: 1px solid var(--ligne-fine);
+        }
+        .sidebar-block h3 {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; color: var(--bleu-helios); margin-bottom: 1.5rem;
+            font-family: 'Manrope', sans-serif;
+        }
+        .sidebar-links { display: flex; flex-direction: column; gap: 0; }
+        .sidebar-link {
+            display: flex; justify-content: space-between; align-items: baseline;
+            padding: 0.85rem 0; border-bottom: 1px solid var(--ligne-fine);
+            text-decoration: none; color: var(--bleu-encre);
+            font-size: 0.88rem; transition: padding-left 0.25s, color 0.2s;
+        }
+        .sidebar-link:first-child { border-top: 1px solid var(--ligne-fine); }
+        .sidebar-link:hover { padding-left: 0.5rem; color: var(--bleu-helios); }
+        .sidebar-count {
+            font-size: 0.72rem; color: var(--gris-texte);
+            background: var(--blanc-casse); padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .sidebar-cta {
+            padding: 2rem; background: var(--bleu-encre); color: white;
+        }
+        .sidebar-cta h3 { color: rgba(255,255,255,0.5); margin-bottom: 1rem; font-family: 'Manrope', sans-serif; }
+        .sidebar-cta p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; }
+        .sidebar-cta a {
+            display: inline-block; padding: 0.75rem 1.5rem;
+            background: var(--bleu-helios); color: white; text-decoration: none;
+            font-size: 0.82rem; font-weight: 600; border-radius: 2px;
+            transition: background 0.25s;
+        }
+        .sidebar-cta a:hover { background: #2567AA; }
+
+        /* ---- Footer ---- */
+        .blog-footer {
+            padding: 3rem 5vw;
+            border-top: 1px solid var(--ligne-fine);
+            background: white;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .blog-footer p { font-size: 0.82rem; color: var(--gris-texte); }
+        .blog-footer a {
+            font-size: 0.82rem; color: var(--bleu-helios); text-decoration: none;
+            font-weight: 600; transition: color 0.2s;
+        }
+        .blog-footer a:hover { color: var(--bleu-encre); }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 1024px) {
+            .blog-main { grid-template-columns: 1fr; gap: 3rem; }
+            .sidebar { position: static; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .cf-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <!-- HEADER -->
+    <header id="hdr">
+        <a href="index.html">
+            <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
+        </a>
+        <nav class="nav-links">
+            <a href="index.html#expertises">Expertises</a>
+            <a href="index.html#methode">Méthode</a>
+            <a href="index.html#equipe">Équipe</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="index.html#partenaires">Références</a>
+            <a href="index.html#contact" class="nav-contact-btn">Contact</a>
+        </nav>
+    </header>
+
+    <!-- BLOG HERO -->
+    <div class="blog-hero">
+        <div class="blog-hero-label">Actualités & réflexions</div>
+        <h1 class="reveal">Le blog <em>Hélios.</em></h1>
+        <p class="reveal reveal-d1">Analyses, retours d'expérience et discussions autour de la résilience climatique, du bilan carbone et du conseil environnemental. Partagez vos questions et échangez avec notre équipe.</p>
+    </div>
+
+    <!-- MAIN -->
+    <div class="blog-main">
+
+        <!-- ARTICLES -->
+        <div class="articles-list">
+
+            <!-- ==================== ARTICLE 1 ==================== -->
+            <article class="article-card reveal" id="article-1">
+                <div class="article-meta">
+                    <span class="article-tag">Expertise · Bilan Carbone</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">8 mars 2026 — 5 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a1')">Comment mesurer son empreinte carbone en 4 étapes</h2>
+                <p class="article-intro">La méthodologie BASE EMPREINTE de l'ADEME permet une quantification rigoureuse et reconnue des émissions de GES par secteur d'activité. Voici comment nous procédons chez Hélios.</p>
+                <button class="btn-read" id="btn-a1" onclick="toggleArticle('a1')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a1">
+                    <div class="article-body-inner">
+                        <p>Le bilan carbone est devenu un outil incontournable pour toute organisation souhaitant comprendre et réduire son impact environnemental. Chez Hélios Junior Conseil, nous appliquons une méthodologie stricte en quatre étapes, validée par l'ADEME.</p>
+
+                        <h3>Étape 1 — Définir le périmètre</h3>
+                        <p>Avant tout calcul, il est essentiel de définir les frontières organisationnelles et opérationnelles du bilan. Quelles entités inclure ? Quels scopes (1, 2, 3) prendre en compte ? Cette décision conditionne la totalité de l'étude.</p>
+
+                        <h3>Étape 2 — Collecter les données d'activité</h3>
+                        <p>Nous transmettons un questionnaire structuré couvrant l'ensemble des postes d'émissions : énergie, déplacements, achats, déchets, immobilisations. La qualité des données collectées détermine directement la fiabilité des résultats.</p>
+
+                        <h3>Étape 3 — Calculer les émissions</h3>
+                        <p>Chaque donnée d'activité est multipliée par son facteur d'émission issu de la base BASE EMPREINTE de l'ADEME. Les résultats sont exprimés en tonnes équivalent CO₂ (teqCO₂), permettant une comparaison entre postes et dans le temps.</p>
+
+                        <h3>Étape 4 — Restituer et prioriser</h3>
+                        <p>Un rapport détaillé est remis au client, accompagné d'une analyse des postes les plus significatifs et de recommandations concrètes priorisées. L'objectif : définir une trajectoire de décarbonation réaliste et mesurable.</p>
+
+                        <p>Vous souhaitez réaliser votre bilan carbone avec Hélios ? Contactez-nous à <a href="mailto:contact@helios-juniorconseil.com" style="color:var(--bleu-helios)">contact@helios-juniorconseil.com</a>.</p>
+                    </div>
+
+                    <!-- Commentaires article 1 -->
+                    <div class="comments-section" id="comments-a1">
+                        <div class="comments-title">Discussion</div>
+                        <div class="comments-list" id="list-a1"></div>
+                        <div class="comment-form-title">Rejoindre la discussion</div>
+                        <form class="comment-form" onsubmit="addComment(event, 'a1')">
+                            <div class="cf-row">
+                                <div class="cf-group">
+                                    <label>Prénom *</label>
+                                    <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
+                                </div>
+                                <div class="cf-group">
+                                    <label>Organisation</label>
+                                    <input type="text" name="org" placeholder="Facultatif" maxlength="60">
+                                </div>
+                            </div>
+                            <div class="cf-group">
+                                <label>Votre message *</label>
+                                <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
+                            </div>
+                            <button type="submit" class="btn-comment">Publier mon commentaire</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==================== ARTICLE 2 ==================== -->
+            <article class="article-card reveal" id="article-2">
+                <div class="article-meta">
+                    <span class="article-tag">Résilience · Stratégie</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">20 fév. 2026 — 7 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a2')">Adaptation climatique : les entreprises face aux risques physiques</h2>
+                <p class="article-intro">Les risques climatiques ne sont plus seulement des enjeux environnementaux : ils deviennent des risques financiers majeurs. Comment les anticiper et construire une stratégie de résilience efficace ?</p>
+                <button class="btn-read" id="btn-a2" onclick="toggleArticle('a2')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a2">
+                    <div class="article-body-inner">
+                        <p>Le changement climatique génère deux types de risques pour les organisations : les risques physiques (inondations, sécheresses, vagues de chaleur) et les risques de transition (nouvelles réglementations, évolution des marchés, changements technologiques). Une stratégie de résilience efficace doit adresser les deux dimensions.</p>
+
+                        <h3>Les risques physiques : une menace concrète</h3>
+                        <p>Les événements climatiques extrêmes se multiplient et s'intensifient. Pour une entreprise, cela se traduit par des interruptions d'activité, des dégâts sur les infrastructures, des perturbations des chaînes d'approvisionnement. Selon les derniers rapports du GIEC, les coûts économiques de ces événements pourraient tripler d'ici 2050 en Europe.</p>
+
+                        <h3>Le schéma de résilience climatique</h3>
+                        <p>La méthodologie que nous proposons chez Hélios s'articule en trois phases :</p>
+                        <ul>
+                            <li>Diagnostic des expositions : identification des aléas climatiques propres à la zone géographique et au secteur d'activité</li>
+                            <li>Analyse de vulnérabilité : évaluation de la sensibilité des actifs, processus et ressources humaines à ces aléas</li>
+                            <li>Plan d'adaptation : définition d'actions concrètes hiérarchisées selon leur coût et leur impact potentiel</li>
+                        </ul>
+
+                        <h3>Des bénéfices qui dépassent la conformité</h3>
+                        <p>Au-delà des obligations réglementaires (CSRD, TCFD), les organisations qui anticipent ces risques se dotent d'un avantage compétitif réel : meilleure continuité d'activité, réduction des primes d'assurance, attractivité accrue pour les investisseurs responsables.</p>
+                    </div>
+
+                    <!-- Commentaires article 2 -->
+                    <div class="comments-section" id="comments-a2">
+                        <div class="comments-title">Discussion</div>
+                        <div class="comments-list" id="list-a2"></div>
+                        <div class="comment-form-title">Rejoindre la discussion</div>
+                        <form class="comment-form" onsubmit="addComment(event, 'a2')">
+                            <div class="cf-row">
+                                <div class="cf-group">
+                                    <label>Prénom *</label>
+                                    <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
+                                </div>
+                                <div class="cf-group">
+                                    <label>Organisation</label>
+                                    <input type="text" name="org" placeholder="Facultatif" maxlength="60">
+                                </div>
+                            </div>
+                            <div class="cf-group">
+                                <label>Votre message *</label>
+                                <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
+                            </div>
+                            <button type="submit" class="btn-comment">Publier mon commentaire</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==================== ARTICLE 3 ==================== -->
+            <article class="article-card reveal" id="article-3">
+                <div class="article-meta">
+                    <span class="article-tag">Junior-Entreprise · ENSIP</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">5 jan. 2026 — 4 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a3')">Pourquoi faire appel à une junior-entreprise pour votre conseil environnemental ?</h2>
+                <p class="article-intro">Compétences académiques de pointe, coûts maîtrisés et regard innovant : quels sont les vrais avantages de travailler avec Hélios par rapport à un cabinet traditionnel ?</p>
+                <button class="btn-read" id="btn-a3" onclick="toggleArticle('a3')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a3">
+                    <div class="article-body-inner">
+                        <p>Les juniors-entreprises sont souvent perçues comme une option "économique" pour les petites structures. La réalité est plus nuancée : elles offrent une combinaison unique de rigueur académique, d'engagement personnel et de fraîcheur intellectuelle que peu de cabinets peuvent égaler.</p>
+
+                        <h3>Une formation de pointe directement appliquée</h3>
+                        <p>Les étudiants de l'ENSIP Poitiers bénéficient d'une formation en génie de l'environnement, de l'eau et de l'énergie reconnue nationalement. Les méthodes enseignées sont directement applicables aux problématiques de transition écologique que rencontrent nos clients.</p>
+
+                        <h3>Un encadrement pédagogique exigeant</h3>
+                        <p>Chaque étude réalisée par Hélios est suivie par des enseignants-chercheurs de l'ENSIP. Ce double regard — étudiant et académique — garantit une qualité de livrable comparable à celle d'un cabinet senior, avec une réactivité et une implication qui font souvent la différence.</p>
+
+                        <h3>Des tarifs adaptés à toutes les structures</h3>
+                        <p>Collectivités, PME, associations, grands groupes : notre modèle tarifaire est conçu pour rendre le conseil environnemental accessible à tous. Contacter Hélios pour une étude, c'est aussi soutenir la formation des futurs ingénieurs de la transition écologique.</p>
+
+                        <p>Vous souhaitez en savoir plus sur nos modalités d'intervention ? Écrivez-nous à <a href="mailto:contact@helios-juniorconseil.com" style="color:var(--bleu-helios)">contact@helios-juniorconseil.com</a>.</p>
+                    </div>
+
+                    <!-- Commentaires article 3 -->
+                    <div class="comments-section" id="comments-a3">
+                        <div class="comments-title">Discussion</div>
+                        <div class="comments-list" id="list-a3"></div>
+                        <div class="comment-form-title">Rejoindre la discussion</div>
+                        <form class="comment-form" onsubmit="addComment(event, 'a3')">
+                            <div class="cf-row">
+                                <div class="cf-group">
+                                    <label>Prénom *</label>
+                                    <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
+                                </div>
+                                <div class="cf-group">
+                                    <label>Organisation</label>
+                                    <input type="text" name="org" placeholder="Facultatif" maxlength="60">
+                                </div>
+                            </div>
+                            <div class="cf-group">
+                                <label>Votre message *</label>
+                                <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
+                            </div>
+                            <button type="submit" class="btn-comment">Publier mon commentaire</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+
+        </div><!-- /articles-list -->
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-block">
+                <h3>Articles</h3>
+                <div class="sidebar-links">
+                    <a href="#article-1" class="sidebar-link" onclick="toggleArticle('a1')">
+                        Mesurer son empreinte carbone
+                        <span class="sidebar-count" id="cnt-a1">0</span>
+                    </a>
+                    <a href="#article-2" class="sidebar-link" onclick="toggleArticle('a2')">
+                        Risques climatiques physiques
+                        <span class="sidebar-count" id="cnt-a2">0</span>
+                    </a>
+                    <a href="#article-3" class="sidebar-link" onclick="toggleArticle('a3')">
+                        Junior-entreprise & conseil
+                        <span class="sidebar-count" id="cnt-a3">0</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-block">
+                <h3>Thématiques</h3>
+                <div class="sidebar-links">
+                    <a href="#article-1" class="sidebar-link">Bilan Carbone</a>
+                    <a href="#article-2" class="sidebar-link">Résilience Climatique</a>
+                    <a href="#article-3" class="sidebar-link">Junior-Entreprise</a>
+                </div>
+            </div>
+
+            <div class="sidebar-cta">
+                <h3>Démarrer un projet</h3>
+                <p>Bilan carbone, schéma de résilience… Contactez notre équipe pour un premier échange sans engagement.</p>
+                <a href="index.html#contact">Nous contacter →</a>
+            </div>
+        </aside>
+
+    </div><!-- /blog-main -->
+
+    <!-- FOOTER -->
+    <div class="blog-footer">
+        <p>&copy; 2026 — Hélios Junior Conseil · ENSIP Poitiers</p>
+        <a href="index.html">← Retour au site</a>
+    </div>
+
+    <script>
+    /* ---- Scroll progress ---- */
+    const sp = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+        sp.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+    }, { passive: true });
+
+    /* ---- Header shadow ---- */
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+    /* ---- Reveal ---- */
+    const ro = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* ---- Toggle article ---- */
+    function toggleArticle(id) {
+        const body = document.getElementById('body-' + id);
+        const btn  = document.getElementById('btn-' + id);
+        if (!body) return;
+        const isOpen = body.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.querySelector('.arrow').textContent = isOpen ? '↓' : '→';
+        if (isOpen) {
+            setTimeout(() => body.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+        }
+    }
+
+    /* ---- localStorage comments ---- */
+    const STORE = 'helios_blog_';
+
+    function loadComments(articleId) {
+        const raw = localStorage.getItem(STORE + articleId);
+        return raw ? JSON.parse(raw) : [];
+    }
+
+    function saveComments(articleId, comments) {
+        localStorage.setItem(STORE + articleId, JSON.stringify(comments));
+    }
+
+    function renderComments(articleId) {
+        const comments = loadComments(articleId);
+        const list = document.getElementById('list-' + articleId);
+        const counter = document.getElementById('cnt-' + articleId);
+        if (!list) return;
+
+        if (counter) counter.textContent = comments.length;
+
+        if (comments.length === 0) {
+            list.innerHTML = '<p class="no-comments">Aucun commentaire pour l\'instant. Soyez le premier à partager votre avis !</p>';
+            return;
+        }
+
+        list.innerHTML = comments.map(c => `
+            <div class="comment-item">
+                <div class="comment-header">
+                    <span class="comment-author">${escHtml(c.prenom)}${c.org ? ' <span style="font-weight:400;color:var(--gris-texte)">· ' + escHtml(c.org) + '</span>' : ''}</span>
+                    <span class="comment-time">${c.date}</span>
+                </div>
+                <div class="comment-text">${escHtml(c.message).replace(/\n/g, '<br>')}</div>
+            </div>
+        `).join('');
+    }
+
+    function addComment(e, articleId) {
+        e.preventDefault();
+        const form = e.target;
+        const prenom  = form.prenom.value.trim();
+        const org     = form.org ? form.org.value.trim() : '';
+        const message = form.message.value.trim();
+
+        if (!prenom || !message) return;
+
+        const now = new Date();
+        const date = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        const comments = loadComments(articleId);
+        comments.push({ prenom, org, message, date });
+        saveComments(articleId, comments);
+        renderComments(articleId);
+
+        form.reset();
+
+        // Scroll to latest comment
+        const list = document.getElementById('list-' + articleId);
+        if (list && list.lastElementChild) {
+            list.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+    function escHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    /* ---- Init: render existing comments & auto-open if hash matches ---- */
+    ['a1', 'a2', 'a3'].forEach(id => renderComments(id));
+
+    const hash = window.location.hash;
+    if (hash === '#article-1') toggleArticle('a1');
+    else if (hash === '#article-2') toggleArticle('a2');
+    else if (hash === '#article-3') toggleArticle('a3');
+    </script>
+
+</body>
+</html>

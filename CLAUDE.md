@@ -51,23 +51,23 @@ Le design de référence est `design5.html`. Style éditorial minimaliste inspir
 
 Tous les assets viennent de `static.wixstatic.com` (site Wix original).
 
-## Équipe (données du site officiel)
+## Équipe actuelle
 ### Pôle Bureau
-- Thomas Candau — Président
-- Clarence Abrial — Trésorière
-- Hiba Habounadi — Secrétaire
+- Raphaël Herraïz — Président
+- Lilian Coupet — Secrétaire
+- Tom Catalao — Trésorier
 
-### Pôle Technico-Commercial
-- Flavie Dupreys — Technico-commerciale
-- Nathan Desgris — Technico-commercial
-- Corentin Lacaille — Technico-commercial
+### Études Carbone & Synthèse
+- Raphaël Herraïz — Chargé d'étude carbone
+- Thomas Damiron — Chargé d'étude carbone · Coordinateur évènementiel
+- Cléa Joassard — Chargée de synthèse
 
 ### Pôle Communication
-- Azhar Turmukhambetova — Chargée de communication
-- Morgane Carfantan — Chargée de communication
+- Baptiste Pamies — Site internet
+- Tom Catalao — Site internet
+- Line Le Rudulier — Compte Instagram
 
-### Pôle Évènementiel
-- Marine Civel — Chargée évènementiel
+> Pas de photos disponibles pour l'instant — la section équipe utilise des avatars avec initiales.
 
 ## Contenu clé
 - **Citation président** : *"Une junior entreprise reflète bien souvent l'identité de son école..."* — Thomas Candau

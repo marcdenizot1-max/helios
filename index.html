@@ -6,21 +6,21 @@
     <title>Hélios Junior Conseil | ENSIP Poitiers</title>
     <meta name="description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, bilan carbone et stratégie environnementale.">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bleu-encre: #051024;
+            --bleu-encre:  #051024;
             --bleu-helios: #1B4F8A;
             --blanc-casse: #F9F9F9;
-            --gris-texte: #5A6069;
-            --ligne-fine: rgba(5, 16, 36, 0.1);
+            --gris-texte:  #5A6069;
+            --ligne-fine:  rgba(5, 16, 36, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
-
         body {
             font-family: 'Manrope', sans-serif;
             background-color: var(--blanc-casse);
@@ -29,41 +29,80 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
-
         h1, h2, h3, .serif { font-family: 'Lora', serif; font-weight: 400; }
+
+        /* ============================================================
+           SCROLL PROGRESS BAR
+        ============================================================ */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bleu-helios) 0%, #4A9EE8 50%, #66C2FF 100%);
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.08s linear;
+        }
+
+        /* ============================================================
+           CUSTOM CURSOR
+        ============================================================ */
+        #cur, #cur-f {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        #cur {
+            width: 8px; height: 8px;
+            background: var(--bleu-helios);
+            z-index: 9999;
+            transition: background 0.3s, width 0.3s, height 0.3s;
+        }
+        #cur-f {
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--bleu-helios);
+            opacity: 0.45;
+            transition: width 0.35s cubic-bezier(.22,1,.36,1),
+                        height 0.35s cubic-bezier(.22,1,.36,1),
+                        opacity 0.35s, border-color 0.3s;
+        }
+        body.cur-hover #cur-f { width: 56px; height: 56px; opacity: 0.2; }
+        body.cur-hover #cur { width: 10px; height: 10px; background: #4A9EE8; }
 
         /* ============================================================
            ANIMATIONS
         ============================================================ */
-
-        /* Fade-up : état initial */
         .reveal {
             opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
-                        transform 0.7s cubic-bezier(.22,1,.36,1);
+            transform: translateY(36px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
         }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* Délais de stagger */
-        .reveal-d1 { transition-delay: 0.1s; }
-        .reveal-d2 { transition-delay: 0.2s; }
-        .reveal-d3 { transition-delay: 0.3s; }
-        .reveal-d4 { transition-delay: 0.4s; }
-        .reveal-d5 { transition-delay: 0.5s; }
-        .reveal-d6 { transition-delay: 0.6s; }
-        .reveal-d7 { transition-delay: 0.7s; }
-        .reveal-d8 { transition-delay: 0.8s; }
-        .reveal-d9 { transition-delay: 0.9s; }
-
-        /* Fade seul (sans translation) */
-        .reveal-fade {
+        .reveal-left {
             opacity: 0;
-            transition: opacity 0.9s ease;
+            transform: translateX(-40px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
         }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-d1  { transition-delay: 0.1s; }
+        .reveal-d2  { transition-delay: 0.2s; }
+        .reveal-d3  { transition-delay: 0.3s; }
+        .reveal-d4  { transition-delay: 0.4s; }
+        .reveal-d5  { transition-delay: 0.5s; }
+        .reveal-d6  { transition-delay: 0.6s; }
+        .reveal-d7  { transition-delay: 0.7s; }
+        .reveal-d8  { transition-delay: 0.8s; }
+        .reveal-d9  { transition-delay: 0.9s; }
+
+        .reveal-fade { opacity: 0; transition: opacity 0.9s ease; }
         .reveal-fade.visible { opacity: 1; }
 
-        /* Ligne qui s'étire */
         .reveal-line {
             transform: scaleX(0);
             transform-origin: left;
@@ -71,25 +110,50 @@
         }
         .reveal-line.visible { transform: scaleX(1); }
 
-        /* Animation hero au chargement */
+        /* Hero entry */
         @keyframes heroIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(22px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        .hero-anim-1 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.1s both; }
-        .hero-anim-2 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.35s both; }
-        .hero-anim-3 { animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.55s both; }
+        .hero-anim-1 { animation: heroIn 0.9s cubic-bezier(.22,1,.36,1) 0.1s both; }
+        .hero-anim-2 { animation: heroIn 0.9s cubic-bezier(.22,1,.36,1) 0.35s both; }
+        .hero-anim-3 { animation: heroIn 0.9s cubic-bezier(.22,1,.36,1) 0.55s both; }
 
-        /* Parallax hero */
-        .hero-image-container img {
-            will-change: transform;
-            transition: filter 0.5s;
+        /* Gradient text animation */
+        @keyframes gradShift {
+            0%, 100% { background-position: 0% 50%; }
+            50%       { background-position: 100% 50%; }
+        }
+        .grad-text {
+            background: linear-gradient(135deg, var(--bleu-helios) 0%, #2980E8 30%, #0A2E5C 60%, var(--bleu-helios) 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 6s ease infinite;
         }
 
-        /* Underline slide nav */
-        .nav-links a:not(.nav-contact-btn) {
-            position: relative;
+        /* Float */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-10px); }
         }
+        .float { animation: float 7s ease-in-out infinite; }
+
+        /* Ripple */
+        .ripple-btn { position: relative; overflow: hidden; }
+        .ripple-btn .ripple-wave {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.28);
+            transform: scale(0);
+            animation: rippleAnim 0.65s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+        /* Underline nav */
+        .nav-links a:not(.nav-contact-btn) { position: relative; }
         .nav-links a:not(.nav-contact-btn)::after {
             content: '';
             position: absolute;
@@ -102,31 +166,33 @@
         }
         .nav-links a:not(.nav-contact-btn):hover::after { transform: scaleX(1); }
 
-        /* Cursor glow sur le header */
         header { transition: box-shadow 0.3s; }
-        header.scrolled { box-shadow: 0 2px 24px rgba(5,16,36,0.08); }
+        header.scrolled { box-shadow: 0 2px 28px rgba(5,16,36,0.09); }
 
         /* ============================================================
-           HEADER / NAV
+           HEADER
         ============================================================ */
         header {
-            padding: 1.5rem 5vw;
+            padding: 1.1rem 5vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--ligne-fine);
-            background-color: rgba(249,249,249,0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background-color: rgba(249,249,249,0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
         }
+        .logo-img {
+            height: 68px;
+            width: auto;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.3s;
+        }
+        .logo-img:hover { transform: scale(1.05); }
 
-        .logo-img { height: 48px; width: auto; }
-
-        .nav-links { display: flex; gap: 3rem; align-items: center; }
-
+        .nav-links { display: flex; gap: 2.8rem; align-items: center; }
         .nav-links a {
             text-decoration: none;
             color: var(--bleu-encre);
@@ -137,7 +203,6 @@
             transition: color 0.2s;
         }
         .nav-links a:hover { color: var(--bleu-helios); }
-
         .nav-contact-btn {
             padding: 0.6rem 1.4rem;
             border: 1.5px solid var(--bleu-encre);
@@ -157,24 +222,31 @@
             display: flex;
             flex-direction: column;
             border-bottom: 1px solid var(--ligne-fine);
+            position: relative;
+            overflow: hidden;
         }
-
+        #heroCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.9;
+        }
         .hero-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 5rem;
+            position: relative;
+            z-index: 1;
         }
-
         .hero h1 {
             font-size: clamp(2.8rem, 6.5vw, 5.5rem);
             line-height: 1.05;
             max-width: 750px;
             letter-spacing: -1px;
         }
-
-        .hero h1 em { font-style: italic; color: var(--bleu-helios); }
-
         .hero-desc {
             max-width: 380px;
             font-size: 1.05rem;
@@ -182,14 +254,16 @@
             padding-left: 2rem;
             border-left: 2px solid var(--bleu-helios);
             line-height: 1.75;
+            position: relative;
+            z-index: 1;
         }
         .hero-desc strong { color: var(--bleu-encre); font-weight: 600; }
-
         .hero-image-container {
             width: 100%;
             height: 58vh;
             overflow: hidden;
             position: relative;
+            z-index: 1;
         }
         .hero-image-container img {
             width: 100%;
@@ -197,8 +271,8 @@
             object-fit: cover;
             filter: grayscale(15%) brightness(0.95);
             transform: translateY(0);
+            will-change: transform;
         }
-
         .hero-badge {
             position: absolute;
             bottom: 2rem; right: 2rem;
@@ -209,14 +283,13 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 600;
-            animation: heroIn 0.8s cubic-bezier(.22,1,.36,1) 0.8s both;
+            animation: heroIn 0.9s cubic-bezier(.22,1,.36,1) 0.8s both;
         }
 
         /* ============================================================
            STATS
         ============================================================ */
         .stats-bar { display: flex; border-bottom: 1px solid var(--ligne-fine); }
-
         .stat-item {
             flex: 1;
             padding: 3rem 5vw;
@@ -224,16 +297,16 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            transition: background 0.3s;
         }
         .stat-item:last-child { border-right: none; }
-
+        .stat-item:hover { background: white; }
         .stat-number {
             font-family: 'Lora', serif;
             font-size: 2.8rem;
             color: var(--bleu-helios);
             line-height: 1;
         }
-
         .stat-label {
             font-size: 0.82rem;
             color: var(--gris-texte);
@@ -250,8 +323,21 @@
             color: var(--blanc-casse);
             text-align: center;
             overflow: hidden;
+            position: relative;
         }
-
+        .quote-bg {
+            position: absolute;
+            font-family: 'Lora', serif;
+            font-size: clamp(8rem, 18vw, 22rem);
+            color: rgba(255,255,255,0.025);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -2px;
+        }
         .quote-section .section-label {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -260,7 +346,6 @@
             margin-bottom: 3rem;
             font-weight: 600;
         }
-
         .quote-section h2 {
             font-size: clamp(1.6rem, 3.5vw, 3rem);
             line-height: 1.4;
@@ -268,7 +353,6 @@
             margin: 0 auto;
             font-style: italic;
         }
-
         .quote-body {
             max-width: 760px;
             margin: 2.5rem auto 0;
@@ -276,7 +360,6 @@
             color: rgba(249,249,249,0.65);
             line-height: 1.8;
         }
-
         .quote-author {
             margin-top: 3rem;
             font-size: 0.82rem;
@@ -290,7 +373,6 @@
            EXPERTISES
         ============================================================ */
         .expertise-section { padding: 8rem 5vw; }
-
         .section-header {
             font-size: 0.82rem;
             text-transform: uppercase;
@@ -299,21 +381,28 @@
             margin-bottom: 4rem;
             font-weight: 600;
         }
-
         .expertise-list { border-top: 1px solid var(--ligne-fine); }
-
         .expertise-item {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding: 3.5rem 1rem 3.5rem 0;
             border-bottom: 1px solid var(--ligne-fine);
-            transition: padding-left 0.4s cubic-bezier(.22,1,.36,1),
-                        background-color 0.4s ease;
+            transition: padding-left 0.4s cubic-bezier(.22,1,.36,1), background-color 0.4s ease;
             cursor: default;
+            position: relative;
+            overflow: hidden;
         }
+        .expertise-item::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 0; height: 2px;
+            background: var(--bleu-helios);
+            transition: width 0.5s cubic-bezier(.22,1,.36,1);
+        }
+        .expertise-item:hover::after { width: 100%; }
         .expertise-item:hover { padding-left: 2rem; background-color: white; }
-
         .expertise-number {
             font-family: 'Lora', serif;
             font-size: 1.5rem;
@@ -321,16 +410,13 @@
             width: 8%;
             padding-top: 0.5rem;
         }
-
         .expertise-content {
             width: 88%;
             display: flex;
             justify-content: space-between;
             gap: 4rem;
         }
-
         .expertise-content h3 { font-size: 2.2rem; width: 40%; line-height: 1.15; }
-
         .expertise-content .expertise-desc {
             width: 50%;
             color: var(--gris-texte);
@@ -338,7 +424,6 @@
             line-height: 1.8;
             padding-top: 0.5rem;
         }
-
         .expertise-tag {
             display: inline-block;
             margin-top: 1.2rem;
@@ -350,6 +435,7 @@
             border-bottom: 1px solid var(--bleu-helios);
             padding-bottom: 2px;
             transition: letter-spacing 0.25s;
+            cursor: pointer;
         }
         .expertise-item:hover .expertise-tag { letter-spacing: 2.5px; }
 
@@ -362,7 +448,6 @@
             border-top: 1px solid var(--ligne-fine);
             border-bottom: 1px solid var(--ligne-fine);
         }
-
         .methodo-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -370,31 +455,38 @@
             margin-top: 4rem;
             border-left: 1px solid var(--ligne-fine);
         }
-
         .methodo-step {
             padding: 3rem 2.5rem;
             border-right: 1px solid var(--ligne-fine);
-            transition: background 0.3s;
+            transition: background 0.35s, transform 0.35s cubic-bezier(.22,1,.36,1);
+            position: relative;
+            overflow: hidden;
         }
-        .methodo-step:hover { background: var(--blanc-casse); }
-
+        .methodo-step::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 0;
+            background: var(--bleu-helios);
+            transition: height 0.4s cubic-bezier(.22,1,.36,1);
+        }
+        .methodo-step:hover { background: var(--blanc-casse); transform: translateY(-4px); }
+        .methodo-step:hover::before { height: 100%; }
         .methodo-step-num {
             font-family: 'Lora', serif;
             font-size: 3rem;
             line-height: 1;
             margin-bottom: 1.5rem;
             color: rgba(5,16,36,0.1);
-            transition: color 0.3s;
+            transition: color 0.35s;
         }
         .methodo-step:hover .methodo-step-num { color: var(--bleu-helios); }
-
         .methodo-step h4 {
             font-size: 1.05rem;
             margin-bottom: 1rem;
             font-weight: 600;
             font-family: 'Manrope', sans-serif;
         }
-
         .methodo-step p { font-size: 0.9rem; color: var(--gris-texte); line-height: 1.7; }
 
         /* ============================================================
@@ -405,82 +497,140 @@
             background-color: var(--blanc-casse);
             border-bottom: 1px solid var(--ligne-fine);
         }
-
         .team-poles {
             display: flex;
             flex-direction: column;
-            gap: 5rem;
+            gap: 4rem;
             margin-top: 4rem;
         }
-
         .team-pole {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5vw;
-            align-items: center;
             border-top: 1px solid var(--ligne-fine);
-            padding-top: 4rem;
+            padding-top: 3.5rem;
         }
-
-        .team-pole:nth-child(even) .team-pole-photo { order: 2; }
-        .team-pole:nth-child(even) .team-pole-info  { order: 1; }
-
-        .team-pole-photo {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .team-pole-photo img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.6s cubic-bezier(.22,1,.36,1);
-        }
-        .team-pole:hover .team-pole-photo img { transform: scale(1.03); }
-
-        .team-pole-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
         .team-pole-title {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2.5px;
             color: var(--bleu-helios);
             font-weight: 600;
+            margin-bottom: 2.5rem;
         }
-
-        .team-members {
+        .team-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+        .team-card {
+            background: white;
+            border: 1px solid var(--ligne-fine);
+            padding: 2rem 1.8rem;
             display: flex;
             flex-direction: column;
-            gap: 0;
+            align-items: flex-start;
+            gap: 1.2rem;
+            transition: border-color 0.3s, transform 0.35s cubic-bezier(.22,1,.36,1),
+                        box-shadow 0.35s;
+            position: relative;
+            overflow: hidden;
         }
-
-        .team-member {
+        .team-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--bleu-helios), #4A9EE8);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+        }
+        .team-card:hover {
+            border-color: rgba(27,79,138,0.22);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 36px rgba(5,16,36,0.08);
+        }
+        .team-card:hover::after { transform: scaleX(1); }
+        .team-avatar {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bleu-helios), #0A2E5C);
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 1.1rem 0;
-            border-bottom: 1px solid var(--ligne-fine);
-            transition: padding-left 0.3s cubic-bezier(.22,1,.36,1);
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
         }
-        .team-member:first-child { border-top: 1px solid var(--ligne-fine); }
-        .team-member:hover { padding-left: 0.8rem; }
-
+        .team-card-info { display: flex; flex-direction: column; gap: 0.3rem; }
         .team-name {
             font-weight: 600;
             font-size: 1rem;
             color: var(--bleu-encre);
+            line-height: 1.2;
+        }
+        .team-role {
+            font-size: 0.78rem;
+            color: var(--gris-texte);
+            font-style: italic;
+            line-height: 1.4;
         }
 
-        .team-role {
-            font-size: 0.75rem;
-            color: var(--gris-texte);
+        /* Carte Président — mise en avant */
+        .bureau-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.2rem;
+        }
+        .team-card--president {
+            grid-column: 1 / -1;
+            background: var(--bleu-encre);
+            border-color: transparent;
+            padding: 2.8rem 2.5rem;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+        }
+        .team-card--president::after {
+            background: linear-gradient(90deg, #4A9EE8, #66C2FF);
+        }
+        .team-card--president:hover {
+            border-color: transparent;
+            box-shadow: 0 16px 48px rgba(5,16,36,0.28);
+        }
+        .team-card--president .team-avatar {
+            width: 68px; height: 68px;
+            font-size: 1.35rem;
+            background: rgba(255,255,255,0.12);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+        .team-card--president .team-name {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .team-card--president .team-role {
+            color: rgba(249,249,249,0.55);
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+        }
+        .president-badge {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.68rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-style: italic;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--bleu-helios);
+            background: rgba(27,79,138,0.18);
+            padding: 0.25rem 0.7rem;
+            border-radius: 2px;
+        }
+        @media (max-width: 480px) {
+            .bureau-grid { grid-template-columns: 1fr; }
+            .team-card--president { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
         }
 
         /* ============================================================
@@ -491,7 +641,6 @@
             border-bottom: 1px solid var(--ligne-fine);
             background: white;
         }
-
         .partners-grid {
             display: flex;
             flex-wrap: wrap;
@@ -500,27 +649,232 @@
             gap: 3rem 5rem;
             margin-top: 4rem;
         }
-
-        .partners-grid img {
+        .partner-item {
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+        }
+        .partner-item:hover { transform: translateY(-5px); }
+        .partner-item img {
             height: 45px;
             width: auto;
             max-width: 160px;
             object-fit: contain;
             filter: grayscale(100%);
             opacity: 0.5;
-            transition: filter 0.4s, opacity 0.4s, transform 0.3s;
+            transition: filter 0.4s, opacity 0.4s, transform 0.35s;
         }
-        .partners-grid img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.05);
+        .partner-item:hover img { filter: grayscale(0%); opacity: 1; }
+
+        /* ============================================================
+           BLOG TEASER
+        ============================================================ */
+        .blog-section {
+            padding: 8rem 5vw;
+            background: var(--blanc-casse);
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-top: 4rem;
+        }
+        .blog-card {
+            border: 1px solid var(--ligne-fine);
+            padding: 2.5rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.35s, transform 0.4s cubic-bezier(.22,1,.36,1),
+                        box-shadow 0.4s;
+            background: white;
+        }
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--bleu-helios), #4A9EE8);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s cubic-bezier(.22,1,.36,1);
+        }
+        .blog-card:hover {
+            border-color: rgba(27,79,138,0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(5,16,36,0.09);
+        }
+        .blog-card:hover::before { transform: scaleX(1); }
+        .blog-tag {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--bleu-helios);
+            margin-bottom: 1.2rem;
+        }
+        .blog-card h3 { font-size: 1.25rem; line-height: 1.3; margin-bottom: 1rem; }
+        .blog-card p {
+            font-size: 0.9rem;
+            color: var(--gris-texte);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .blog-meta { font-size: 0.78rem; color: var(--gris-texte); display: flex; gap: 0.5rem; }
+        .blog-footer {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .btn-outline {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1.5px solid var(--bleu-encre);
+            color: var(--bleu-encre);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+            transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+        .btn-outline:hover {
+            background: var(--bleu-encre);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(5,16,36,0.18);
+        }
+
+        /* ============================================================
+           CONTACT FORM
+        ============================================================ */
+        .contact-section {
+            padding: 8rem 5vw;
+            background-color: white;
+            border-top: 1px solid var(--ligne-fine);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 6rem;
+            margin-top: 4rem;
+            align-items: start;
+        }
+        .contact-info h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .contact-info p {
+            color: var(--gris-texte);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 2.5rem;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--bleu-encre);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--ligne-fine);
+            transition: padding-left 0.3s, color 0.25s;
+        }
+        .contact-link:hover { padding-left: 0.6rem; color: var(--bleu-helios); }
+        .contact-link-icon {
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--ligne-fine);
+            border-radius: 50%;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .contact-link:hover .contact-link-icon {
+            background: var(--bleu-helios);
+            border-color: var(--bleu-helios);
+            color: white;
+        }
+
+        .contact-form { display: flex; flex-direction: column; gap: 1.4rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--bleu-encre);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border: 1px solid var(--ligne-fine);
+            border-radius: 2px;
+            padding: 0.85rem 1rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95rem;
+            color: var(--bleu-encre);
+            background: var(--blanc-casse);
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+            -webkit-appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--bleu-helios);
+            box-shadow: 0 0 0 3px rgba(27,79,138,0.09);
+            background: white;
+        }
+        .form-group textarea { resize: vertical; min-height: 140px; }
+        .btn-submit {
+            align-self: flex-start;
+            padding: 1rem 2.5rem;
+            background-color: var(--bleu-encre);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover {
+            background-color: var(--bleu-helios);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(27,79,138,0.3);
+        }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .form-success {
+            display: none;
+            padding: 1.2rem 1.5rem;
+            background: rgba(27,79,138,0.06);
+            border-left: 3px solid var(--bleu-helios);
+            color: var(--bleu-encre);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border-radius: 0 2px 2px 0;
         }
 
         /* ============================================================
            FOOTER
         ============================================================ */
         footer { padding: 5rem 5vw 3rem; background-color: white; }
-
         .footer-top {
             display: flex;
             justify-content: space-between;
@@ -528,14 +882,12 @@
             padding-bottom: 4rem;
             border-bottom: 1px solid var(--ligne-fine);
         }
-
         .footer-cta h2 {
             font-size: clamp(2rem, 4vw, 3rem);
             margin-bottom: 2rem;
             max-width: 500px;
             line-height: 1.15;
         }
-
         .btn-contact {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -546,10 +898,13 @@
             font-size: 0.9rem;
             border-radius: 2px;
             letter-spacing: 0.5px;
-            transition: background-color 0.3s, transform 0.25s;
+            transition: background-color 0.3s, transform 0.25s, box-shadow 0.3s;
         }
-        .btn-contact:hover { background-color: var(--bleu-encre); transform: translateY(-2px); }
-
+        .btn-contact:hover {
+            background-color: var(--bleu-encre);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(27,79,138,0.25);
+        }
         .footer-info {
             text-align: right;
             display: flex;
@@ -557,12 +912,9 @@
             align-items: flex-end;
             gap: 1.5rem;
         }
-
         .footer-logos { display: flex; align-items: center; gap: 2rem; }
         .footer-logos img { height: 42px; width: auto; object-fit: contain; }
-
         .footer-social { display: flex; gap: 1.2rem; }
-
         .footer-social a {
             display: flex;
             align-items: center;
@@ -572,7 +924,7 @@
             border-radius: 50%;
             text-decoration: none;
             color: var(--bleu-encre);
-            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.25s;
+            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.3s;
         }
         .footer-social a:hover {
             border-color: var(--bleu-helios);
@@ -581,7 +933,6 @@
             transform: translateY(-3px);
         }
         .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
-
         .footer-bottom {
             padding-top: 2rem;
             display: flex;
@@ -589,7 +940,6 @@
             align-items: center;
         }
         .footer-bottom p { font-size: 0.8rem; color: var(--gris-texte); }
-
         .footer-nav { display: flex; gap: 2rem; }
         .footer-nav a {
             font-size: 0.8rem;
@@ -602,13 +952,79 @@
         .footer-nav a:hover { color: var(--bleu-helios); }
 
         /* ============================================================
+           ANIMATIONS SUPPLÉMENTAIRES
+        ============================================================ */
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.93) translateY(20px);
+            transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+                        transform 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-scale.visible { opacity: 1; transform: scale(1) translateY(0); }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(.22,1,.36,1),
+                        transform 0.8s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ============================================================
+           MENU HAMBURGER (MOBILE)
+        ============================================================ */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            z-index: 201;
+            position: relative;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--bleu-encre);
+            border-radius: 2px;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.25s;
+        }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5,16,36,0.45);
+            z-index: 149;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+        .nav-overlay.open { display: block; }
+
+        /* ============================================================
            RESPONSIVE
         ============================================================ */
         @media (max-width: 1200px) {
             .methodo-grid { grid-template-columns: repeat(2, 1fr); }
             .methodo-step:nth-child(2) { border-right: none; }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .blog-grid .blog-card:last-child { display: none; }
         }
-
         @media (max-width: 1024px) {
             .hero-top { flex-direction: column; align-items: flex-start; gap: 3rem; }
             .hero-desc { border-left: none; padding-left: 0; border-top: 2px solid var(--bleu-helios); padding-top: 1.2rem; max-width: 100%; }
@@ -619,50 +1035,122 @@
             .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
             .stats-bar { flex-wrap: wrap; }
             .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid var(--ligne-fine); }
+            .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
         }
-
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: min(300px, 82vw);
+                height: 100dvh;
+                background: var(--blanc-casse);
+                padding: 6rem 2.5rem 3rem;
+                gap: 0;
+                box-shadow: -6px 0 40px rgba(5,16,36,0.14);
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+                z-index: 200;
+                border-left: 1px solid var(--ligne-fine);
+            }
+            .nav-links a {
+                padding: 1.1rem 0;
+                border-bottom: 1px solid var(--ligne-fine);
+                font-size: 0.9rem;
+                letter-spacing: 1.5px;
+            }
+            .nav-links a:last-child { border-bottom: none; margin-top: 1.5rem; }
+            .nav-links.open { transform: translateX(0); }
+            .nav-contact-btn {
+                display: inline-block !important;
+                text-align: center;
+                margin-top: 1rem;
+            }
             .methodo-grid { grid-template-columns: 1fr; }
             .methodo-step { border-right: none; border-bottom: 1px solid var(--ligne-fine); }
             .partners-grid { gap: 2rem 3rem; }
-            .team-pole { grid-template-columns: 1fr; gap: 2rem; }
-            .team-pole:nth-child(even) .team-pole-photo { order: 0; }
-            .team-pole:nth-child(even) .team-pole-info  { order: 0; }
+            .team-cards { grid-template-columns: repeat(2, 1fr); }
+            .blog-grid { grid-template-columns: 1fr; }
+            .blog-grid .blog-card:last-child { display: block; }
+            .form-row { grid-template-columns: 1fr; }
+            #cur, #cur-f { display: none; }
+            .hero { padding: 5rem 5vw 0; }
+            .hero h1 { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+            .expertise-section, .methodo-section, .team-section,
+            .partners-section, .blog-section, .contact-section,
+            .quote-section { padding: 5rem 5vw; }
+            .expertise-item { padding: 2.5rem 0.5rem 2.5rem 0; }
+            .expertise-number { display: none; }
+            .expertise-content { width: 100%; }
+            .team-cards { grid-template-columns: 1fr 1fr; }
+            footer { padding: 4rem 5vw 2rem; }
+        }
+        @media (max-width: 480px) {
+            .team-cards { grid-template-columns: 1fr; }
+            .stat-item { min-width: 100%; }
+            .blog-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- Barre de progression scroll -->
+    <div id="scroll-progress"></div>
+
+    <!-- Curseur personnalisé (desktop uniquement) -->
+    <div id="cur"></div>
+    <div id="cur-f"></div>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+    <!-- Overlay menu mobile -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
     <header>
         <a href="#">
-            <img src="assets/logo-helios.png" alt="Hélios Junior Conseil" class="logo-img">
+            <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
         </a>
-        <nav class="nav-links">
+        <nav class="nav-links" id="navLinks">
             <a href="#expertises">Expertises</a>
             <a href="#methode">Méthode</a>
             <a href="#equipe">Équipe</a>
-            <a href="#partenaires">Références</a>
+            <a href="blog.html">Blog</a>
             <a href="#contact" class="nav-contact-btn">Contact</a>
         </nav>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
-    <!-- HERO -->
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
     <section class="hero">
+        <canvas id="heroCanvas"></canvas>
         <div class="hero-top">
-            <h1 class="hero-anim-1">L'ingénierie étudiante<br>au service de votre<br><em>transition climatique.</em></h1>
+            <h1 class="hero-anim-1">L'ingénierie étudiante<br>au service de votre<br><em class="grad-text">transition climatique.</em></h1>
             <p class="hero-desc hero-anim-2">
                 <strong>Hélios Junior Conseil</strong> est la junior-entreprise de l'École Nationale Supérieure d'Ingénieurs de Poitiers. Spécialisée dans l'énergie, l'eau et le génie civil, nous accompagnons entreprises et collectivités dans leur stratégie de résilience climatique.
             </p>
         </div>
         <div class="hero-image-container hero-anim-3" id="heroImg">
-            <img id="parallaxImg" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=2400" alt="Énergie et ingénierie">
+            <img id="parallaxImg"
+                 src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=1600"
+                 alt="Énergie et ingénierie"
+                 loading="eager"
+                 fetchpriority="high">
             <div class="hero-badge">Fondée en 2024 · ENSIP Poitiers</div>
         </div>
     </section>
 
-    <!-- STATS BAR -->
+    <!-- ============================================================
+         STATS BAR
+    ============================================================ -->
     <div class="stats-bar">
         <div class="stat-item reveal reveal-d1">
             <span class="stat-number" data-target="2024" data-format="year">2024</span>
@@ -682,15 +1170,20 @@
         </div>
     </div>
 
-    <!-- QUOTE -->
+    <!-- ============================================================
+         QUOTE
+    ============================================================ -->
     <section class="quote-section" id="vision">
+        <div class="quote-bg">Hélios</div>
         <p class="section-label reveal reveal-d1">Le mot du Président</p>
         <h2 class="reveal reveal-d2">"Une junior entreprise reflète bien souvent l'identité de son école. Il nous semblait donc essentiel de faire d'Hélios une structure résolument engagée dans les enjeux environnementaux, aujourd'hui au cœur des débats scientifiques."</h2>
         <p class="quote-body reveal reveal-d3">Lancée en 2024, notre activité de conseil en résilience climatique offre aux étudiants une immersion concrète dans le monde professionnel, en lien direct avec les entreprises. Cette expérience nous permet d'apprendre à répondre à des besoins réels, à communiquer clairement nos résultats, et à mieux comprendre les défis liés à l'adaptation au changement climatique.</p>
-        <p class="quote-author reveal reveal-d4">Thomas Candau — Président d'Hélios Junior Conseil</p>
+        <p class="quote-author reveal reveal-d4">Raphaël Herraïz — Président d'Hélios Junior Conseil</p>
     </section>
 
-    <!-- EXPERTISES -->
+    <!-- ============================================================
+         EXPERTISES
+    ============================================================ -->
     <section class="expertise-section" id="expertises">
         <div class="section-header reveal">Domaines d'intervention</div>
         <div class="expertise-list">
@@ -727,7 +1220,9 @@
         </div>
     </section>
 
-    <!-- MÉTHODOLOGIE -->
+    <!-- ============================================================
+         MÉTHODOLOGIE
+    ============================================================ -->
     <section class="methodo-section" id="methode">
         <div class="section-header reveal">Notre démarche</div>
         <div class="methodo-grid">
@@ -754,55 +1249,65 @@
         </div>
     </section>
 
-    <!-- ÉQUIPE -->
+    <!-- ============================================================
+         ÉQUIPE
+    ============================================================ -->
     <section class="team-section" id="equipe">
         <div class="section-header reveal">Notre équipe</div>
-
         <div class="team-poles">
 
             <!-- Pôle Bureau -->
             <div class="team-pole reveal">
-                <div class="team-pole-photo reveal reveal-d1">
-                    <img src="assets/team-photo1.png" alt="Pôle Bureau — Hélios Junior Conseil">
-                </div>
-                <div class="team-pole-info reveal reveal-d2">
-                    <div class="team-pole-title">Pôle Bureau</div>
-                    <div class="team-members">
-                        <div class="team-member">
-                            <span class="team-name">Thomas Candau</span>
-                            <span class="team-role">Président</span>
+                <div class="team-pole-title">Pôle Bureau</div>
+                <div class="bureau-grid">
+                    <div class="team-card team-card--president reveal-scale reveal-d1">
+                        <div class="team-avatar">RH</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Raphaël Herraïz</span>
+                            <span class="team-role">Président d'Hélios Junior Conseil</span>
+                            <span class="president-badge">Président</span>
                         </div>
-                        <div class="team-member">
-                            <span class="team-name">Clarence Abrial</span>
-                            <span class="team-role">Trésorière</span>
-                        </div>
-                        <div class="team-member">
-                            <span class="team-name">Hiba Habounadi</span>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d2">
+                        <div class="team-avatar">LC</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Lilian Coupet</span>
                             <span class="team-role">Secrétaire</span>
+                        </div>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d3">
+                        <div class="team-avatar">TC</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Tom Catalao</span>
+                            <span class="team-role">Trésorier</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pôle Technico-Commercial -->
+            <!-- Pôle Études Carbone -->
             <div class="team-pole reveal">
-                <div class="team-pole-photo reveal reveal-d1">
-                    <img src="assets/team-photo2.png" alt="Pôle Technico-Commercial — Hélios Junior Conseil">
-                </div>
-                <div class="team-pole-info reveal reveal-d2">
-                    <div class="team-pole-title">Pôle Technico-Commercial</div>
-                    <div class="team-members">
-                        <div class="team-member">
-                            <span class="team-name">Flavie Dupreys</span>
-                            <span class="team-role">Technico-commerciale</span>
+                <div class="team-pole-title">Études Carbone & Synthèse</div>
+                <div class="team-cards">
+                    <div class="team-card reveal-scale reveal-d1">
+                        <div class="team-avatar">RH</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Raphaël Herraïz</span>
+                            <span class="team-role">Chargé d'étude carbone</span>
                         </div>
-                        <div class="team-member">
-                            <span class="team-name">Nathan Desgris</span>
-                            <span class="team-role">Technico-commercial</span>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d2">
+                        <div class="team-avatar">TD</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Thomas Damiron</span>
+                            <span class="team-role">Chargé d'étude carbone · Coordinateur évènementiel</span>
                         </div>
-                        <div class="team-member">
-                            <span class="team-name">Corentin Lacaille</span>
-                            <span class="team-role">Technico-commercial</span>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d3">
+                        <div class="team-avatar">CJ</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Cléa Joassard</span>
+                            <span class="team-role">Chargée de synthèse</span>
                         </div>
                     </div>
                 </div>
@@ -810,35 +1315,34 @@
 
             <!-- Pôle Communication -->
             <div class="team-pole reveal">
-                <div class="team-pole-photo reveal reveal-d1">
-                    <img src="assets/team-photo3.png" alt="Pôle Communication — Hélios Junior Conseil">
-                </div>
-                <div class="team-pole-info reveal reveal-d2">
-                    <div class="team-pole-title">Pôle Communication</div>
-                    <div class="team-members">
-                        <div class="team-member">
-                            <span class="team-name">Azhar Turmukhambetova</span>
-                            <span class="team-role">Chargée de communication</span>
-                        </div>
-                        <div class="team-member">
-                            <span class="team-name">Morgane Carfantan</span>
-                            <span class="team-role">Chargée de communication</span>
+                <div class="team-pole-title">Pôle Communication</div>
+                <div class="team-cards">
+                    <div class="team-card reveal-scale reveal-d1">
+                        <div class="team-avatar">MD</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Marc Denizot</span>
+                            <span class="team-role">Site internet</span>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Pôle Évènementiel -->
-            <div class="team-pole reveal">
-                <div class="team-pole-photo reveal reveal-d1" style="max-width:360px;">
-                    <img src="assets/team-photo4.png" alt="Pôle Évènementiel — Hélios Junior Conseil">
-                </div>
-                <div class="team-pole-info reveal reveal-d2">
-                    <div class="team-pole-title">Pôle Évènementiel</div>
-                    <div class="team-members">
-                        <div class="team-member">
-                            <span class="team-name">Marine Civel</span>
-                            <span class="team-role">Chargée évènementiel</span>
+                    <div class="team-card reveal-scale reveal-d2">
+                        <div class="team-avatar">BP</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Baptiste Pamies</span>
+                            <span class="team-role">Site internet</span>
+                        </div>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d3">
+                        <div class="team-avatar">TC</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Tom Catalao</span>
+                            <span class="team-role">Site internet</span>
+                        </div>
+                    </div>
+                    <div class="team-card reveal-scale reveal-d4">
+                        <div class="team-avatar">LR</div>
+                        <div class="team-card-info">
+                            <span class="team-name">Line Le Rudulier</span>
+                            <span class="team-role">Compte Instagram</span>
                         </div>
                     </div>
                 </div>
@@ -847,29 +1351,148 @@
         </div>
     </section>
 
-    <!-- PARTENAIRES -->
+    <!-- ============================================================
+         PARTENAIRES
+    ============================================================ -->
     <section class="partners-section" id="partenaires">
         <div class="section-header reveal">Ils nous ont fait confiance</div>
         <div class="partners-grid">
-            <img src="assets/logo-sg.png"       alt="Société Générale"        class="reveal reveal-d1">
-            <img src="assets/logo-partner3.png" alt="Université de Poitiers"  class="reveal reveal-d2">
-            <img src="assets/logo-partner2.png" alt="Département de la Vienne" class="reveal reveal-d3">
-            <img src="assets/logo-inpb.png"     alt="Bordeaux INP Aquitaine"  class="reveal reveal-d4">
-            <img src="assets/logo-partner1.png" alt="Université partenaire"   class="reveal reveal-d5">
+            <span class="partner-item reveal reveal-d1">
+                <img src="assets/logo-sg.webp" alt="Société Générale" loading="lazy">
+            </span>
+            <a href="https://www.univ-poitiers.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d2">
+                <img src="assets/logo-partner3.webp" alt="Université de Poitiers" loading="lazy">
+            </a>
+            <span class="partner-item reveal reveal-d3">
+                <img src="assets/logo-partner2.webp" alt="Département de la Vienne" loading="lazy">
+            </span>
+            <a href="https://www.bordeaux-inp.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d4">
+                <img src="assets/logo-inpb.webp" alt="Bordeaux INP Aquitaine" loading="lazy">
+            </a>
+            <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d5">
+                <img src="assets/logo-partner1.webp" alt="ENSIP Poitiers" loading="lazy">
+            </a>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer id="contact">
+    <!-- ============================================================
+         BLOG TEASER
+    ============================================================ -->
+    <section class="blog-section" id="blog">
+        <div class="section-header reveal">Actualités & réflexions</div>
+        <div class="blog-grid">
+            <a href="blog.html#article-1" class="blog-card reveal-up reveal-d1">
+                <div class="blog-tag">Expertise · Bilan Carbone</div>
+                <h3>Comment mesurer son empreinte carbone en 4 étapes</h3>
+                <p>La méthodologie BASE EMPREINTE de l'ADEME permet une quantification rigoureuse et reconnue des émissions de GES par secteur d'activité.</p>
+                <div class="blog-meta"><span>8 mars 2026</span><span>·</span><span>5 min</span></div>
+            </a>
+            <a href="blog.html#article-2" class="blog-card reveal-up reveal-d2">
+                <div class="blog-tag">Résilience · Stratégie</div>
+                <h3>Adaptation climatique : les entreprises face aux risques physiques</h3>
+                <p>Les risques climatiques ne sont plus seulement des enjeux environnementaux : ils deviennent des risques financiers majeurs pour les organisations.</p>
+                <div class="blog-meta"><span>20 fév. 2026</span><span>·</span><span>7 min</span></div>
+            </a>
+            <a href="blog.html#article-3" class="blog-card reveal-up reveal-d3">
+                <div class="blog-tag">Junior-Entreprise · ENSIP</div>
+                <h3>Pourquoi faire appel à une junior-entreprise pour votre conseil environnemental ?</h3>
+                <p>Compétences académiques de pointe, coûts maîtrisés et regard innovant : les atouts concrets d'Hélios pour votre organisation.</p>
+                <div class="blog-meta"><span>5 jan. 2026</span><span>·</span><span>4 min</span></div>
+            </a>
+        </div>
+        <div class="blog-footer reveal">
+            <a href="blog.html" class="btn-outline">Voir tous les articles &amp; échanger →</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FORMULAIRE DE CONTACT
+    ============================================================ -->
+    <section class="contact-section" id="contact">
+        <div class="section-header reveal">Nous contacter</div>
+        <div class="contact-grid">
+
+            <div class="contact-info reveal-left">
+                <h2>Discutons de votre projet environnemental</h2>
+                <p>Bilan carbone, schéma de résilience, conseil stratégique… Notre équipe vous répond sous 48h.</p>
+                <div class="contact-links">
+                    <a href="mailto:contact@helios-juniorconseil.com" class="contact-link">
+                        <span class="contact-link-icon">✉</span>
+                        contact@helios-juniorconseil.com
+                    </a>
+                    <a href="https://www.linkedin.com/company/helios-jconseil/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">in</span>
+                        LinkedIn — Hélios Junior Conseil
+                    </a>
+                    <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">🎓</span>
+                        ENSIP Poitiers
+                    </a>
+                    <a href="https://www.instagram.com/junior.helios/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">📷</span>
+                        @junior.helios
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form reveal-right" id="contactForm"
+                  action="https://formsubmit.co/ajax/contact@helios-juniorconseil.com"
+                  method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="f-prenom">Prénom *</label>
+                        <input type="text" id="f-prenom" name="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="f-nom">Nom *</label>
+                        <input type="text" id="f-nom" name="nom" required placeholder="Votre nom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f-email">Email *</label>
+                    <input type="email" id="f-email" name="email" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="f-sujet">Sujet</label>
+                    <select id="f-sujet" name="sujet">
+                        <option value="">Choisir un sujet…</option>
+                        <option value="Bilan Carbone">Bilan Carbone</option>
+                        <option value="Schéma de Résilience">Schéma de Résilience</option>
+                        <option value="Conseil Stratégique">Conseil Stratégique</option>
+                        <option value="Partenariat">Partenariat</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="f-message">Message *</label>
+                    <textarea id="f-message" name="message" required placeholder="Décrivez votre projet ou votre demande…"></textarea>
+                </div>
+                <div class="form-success" id="formSuccess">
+                    ✓ Merci pour votre message ! Notre équipe vous répondra dans les 48h.
+                </div>
+                <button type="submit" class="btn-submit ripple-btn" id="submitBtn">
+                    Envoyer le message
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer>
         <div class="footer-top">
             <div class="footer-cta reveal">
                 <h2>Prêt à évaluer votre impact carbone ?</h2>
-                <a href="mailto:contact@helios-juniorconseil.com" class="btn-contact">Démarrer une étude</a>
+                <a href="#contact" class="btn-contact ripple-btn">Démarrer une étude</a>
             </div>
             <div class="footer-info reveal reveal-d2">
                 <div class="footer-logos">
-                    <img src="assets/logo-helios.png" alt="Hélios Junior Conseil">
-                    <img src="assets/logo-ensip.webp" alt="ENSIP Poitiers">
+                    <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil">
+                    <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener">
+                        <img src="assets/logo-ensip.webp" alt="ENSIP Poitiers">
+                    </a>
                 </div>
                 <div class="footer-social">
                     <a href="https://www.linkedin.com/company/helios-jconseil/" target="_blank" aria-label="LinkedIn">
@@ -878,7 +1501,7 @@
                     <a href="https://www.facebook.com/ensip.helios/" target="_blank" aria-label="Facebook">
                         <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+                    <a href="https://www.instagram.com/junior.helios/" target="_blank" aria-label="Instagram">
                         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
                     </a>
                 </div>
@@ -891,7 +1514,7 @@
                 <a href="#expertises">Expertises</a>
                 <a href="#methode">Méthode</a>
                 <a href="#equipe">Équipe</a>
-                <a href="#partenaires">Références</a>
+                <a href="blog.html">Blog</a>
                 <a href="#contact">Contact</a>
             </nav>
         </div>
@@ -901,69 +1524,204 @@
          JAVASCRIPT
     ============================================================ -->
     <script>
-    // --- Scroll reveal (Intersection Observer) ---
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal, .reveal-fade').forEach(el => observer.observe(el));
-
-    // --- Header shadow on scroll ---
-    const header = document.querySelector('header');
+    /* ---- Scroll progress bar ---- */
+    const scrollBar = document.getElementById('scroll-progress');
     window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 20);
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        scrollBar.style.width = (window.scrollY / max * 100) + '%';
     }, { passive: true });
 
-    // --- Parallax hero image ---
+    /* ---- Custom cursor (desktop uniquement) ---- */
+    const cur  = document.getElementById('cur');
+    const curF = document.getElementById('cur-f');
+    if (window.matchMedia('(pointer: fine)').matches) {
+        let mx = -100, my = -100, fx = -100, fy = -100;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cur.style.left = mx + 'px';
+            cur.style.top  = my + 'px';
+        });
+        (function animCursor() {
+            fx += (mx - fx) * 0.11;
+            fy += (my - fy) * 0.11;
+            curF.style.left = fx + 'px';
+            curF.style.top  = fy + 'px';
+            requestAnimationFrame(animCursor);
+        })();
+        document.querySelectorAll('a, button, .expertise-item, .blog-card, .methodo-step').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cur-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cur-hover'));
+        });
+    }
+
+    /* ---- Mobile menu ---- */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+    function closeMenu() {
+        navToggle.classList.remove('open');
+        navLinks.classList.remove('open');
+        navOverlay.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            const opening = !navLinks.classList.contains('open');
+            if (opening) {
+                navToggle.classList.add('open');
+                navLinks.classList.add('open');
+                navOverlay.classList.add('open');
+                navToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            } else {
+                closeMenu();
+            }
+        });
+        navOverlay.addEventListener('click', closeMenu);
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    }
+
+    /* ---- Scroll reveal ---- */
+    const revObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                revObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-fade, .reveal-left, .reveal-scale, .reveal-right, .reveal-up').forEach(el => revObs.observe(el));
+
+    /* ---- Header shadow ---- */
+    const hdr = document.querySelector('header');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+    /* ---- Parallax hero ---- */
     const parallaxImg = document.getElementById('parallaxImg');
-    const heroImgContainer = document.getElementById('heroImg');
-    if (parallaxImg && heroImgContainer) {
+    const heroImg = document.getElementById('heroImg');
+    if (parallaxImg && heroImg) {
         window.addEventListener('scroll', () => {
-            const rect = heroImgContainer.getBoundingClientRect();
-            if (rect.bottom > 0 && rect.top < window.innerHeight) {
-                const progress = -rect.top / window.innerHeight;
-                parallaxImg.style.transform = `translateY(${progress * 60}px)`;
+            const r = heroImg.getBoundingClientRect();
+            if (r.bottom > 0 && r.top < window.innerHeight) {
+                parallaxImg.style.transform = `translateY(${(-r.top / window.innerHeight) * 60}px)`;
             }
         }, { passive: true });
     }
 
-    // --- Animated counters ---
-    function animateCounter(el) {
+    /* ---- Animated counters ---- */
+    function animCounter(el) {
         const target = parseInt(el.dataset.target, 10);
+        if (!target || el.dataset.format === 'year') return;
         const suffix = el.dataset.suffix ?? '';
-        const format = el.dataset.format;
-        if (!target || format === 'year') return; // skip non-numeric or year
-        const duration = 1200;
-        const start = performance.now();
-        const from = 0;
+        const dur = 1500, t0 = performance.now();
+        (function step(now) {
+            const p = Math.min((now - t0) / dur, 1);
+            el.textContent = Math.round((1 - Math.pow(1 - p, 4)) * target) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+        })(performance.now());
+    }
+    const cntObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { animCounter(e.target); cntObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => cntObs.observe(el));
 
-        function step(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // easeOutQuart
-            const eased = 1 - Math.pow(1 - progress, 4);
-            const value = Math.round(from + (target - from) * eased);
-            el.textContent = value + suffix;
-            if (progress < 1) requestAnimationFrame(step);
+    /* ---- Canvas particles (hero) ---- */
+    const canvas = document.getElementById('heroCanvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let W, H, dots = [];
+        const N = 55;
+
+        function resize() {
+            W = canvas.width  = canvas.offsetWidth;
+            H = canvas.height = canvas.offsetHeight;
         }
-        requestAnimationFrame(step);
+        resize();
+        new ResizeObserver(resize).observe(canvas.parentElement);
+
+        for (let i = 0; i < N; i++) {
+            dots.push({
+                x: Math.random() * (W || 800),
+                y: Math.random() * (H || 600),
+                vx: (Math.random() - 0.5) * 0.45,
+                vy: (Math.random() - 0.5) * 0.45,
+                r: Math.random() * 1.8 + 0.8
+            });
+        }
+
+        (function draw() {
+            ctx.clearRect(0, 0, W, H);
+            dots.forEach(d => {
+                d.x += d.vx; d.y += d.vy;
+                if (d.x < 0 || d.x > W) d.vx *= -1;
+                if (d.y < 0 || d.y > H) d.vy *= -1;
+            });
+            for (let i = 0; i < N; i++) {
+                for (let j = i + 1; j < N; j++) {
+                    const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(27,79,138,${0.14 * (1 - dist / 130)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
+                        ctx.stroke();
+                    }
+                }
+                ctx.beginPath();
+                ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(27,79,138,0.22)';
+                ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        })();
     }
 
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                counterObserver.unobserve(entry.target);
+    /* ---- Ripple on buttons ---- */
+    document.querySelectorAll('.ripple-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const wave = document.createElement('span');
+            wave.classList.add('ripple-wave');
+            const s = Math.max(rect.width, rect.height);
+            wave.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-rect.left-s/2}px;top:${e.clientY-rect.top-s/2}px`;
+            this.appendChild(wave);
+            setTimeout(() => wave.remove(), 700);
+        });
+    });
+
+    /* ---- Contact form (AJAX) ---- */
+    const form = document.getElementById('contactForm');
+    const fSuccess = document.getElementById('formSuccess');
+    const fBtn = document.getElementById('submitBtn');
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            fBtn.textContent = 'Envoi en cours…';
+            fBtn.disabled = true;
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    form.querySelectorAll('input, select, textarea').forEach(i => i.value = '');
+                    fSuccess.style.display = 'block';
+                    fBtn.textContent = 'Message envoyé ✓';
+                } else {
+                    throw new Error();
+                }
+            } catch {
+                fBtn.disabled = false;
+                fBtn.textContent = 'Envoyer le message';
+                alert('Une erreur est survenue. Veuillez nous écrire directement à contact@helios-juniorconseil.com');
             }
         });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+    }
     </script>
 
 </body>
