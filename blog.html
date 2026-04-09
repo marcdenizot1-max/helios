@@ -302,14 +302,97 @@
         }
         .blog-footer a:hover { color: var(--bleu-encre); }
 
+        /* ---- Menu hamburger ---- */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            z-index: 201;
+            position: relative;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--bleu-encre);
+            border-radius: 2px;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.25s;
+        }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5,16,36,0.45);
+            z-index: 149;
+        }
+        .nav-overlay.open { display: block; }
+
+        /* ---- Section discussion globale ---- */
+        .global-discussion {
+            padding: 6rem 5vw;
+            border-top: 1px solid var(--ligne-fine);
+            background: white;
+        }
+        .global-discussion-label {
+            font-size: 0.78rem; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--bleu-helios); font-weight: 600; margin-bottom: 1rem;
+        }
+        .global-discussion h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            line-height: 1.15; margin-bottom: 1rem;
+        }
+        .global-discussion > p {
+            max-width: 560px; color: var(--gris-texte);
+            font-size: 1rem; line-height: 1.75; margin-bottom: 3rem;
+        }
+
         /* ---- Responsive ---- */
         @media (max-width: 1024px) {
             .blog-main { grid-template-columns: 1fr; gap: 3rem; }
             .sidebar { position: static; }
         }
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: min(300px, 82vw);
+                height: 100dvh;
+                background: var(--blanc-casse);
+                padding: 6rem 2.5rem 3rem;
+                gap: 0;
+                box-shadow: -6px 0 40px rgba(5,16,36,0.14);
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+                z-index: 200;
+                border-left: 1px solid var(--ligne-fine);
+            }
+            .nav-links a {
+                padding: 1.1rem 0;
+                border-bottom: 1px solid var(--ligne-fine);
+                font-size: 0.9rem;
+                letter-spacing: 1.5px;
+            }
+            .nav-links a:last-child { border-bottom: none; margin-top: 1.5rem; }
+            .nav-links.open { transform: translateX(0); }
+            .nav-contact-btn {
+                display: inline-block !important;
+                text-align: center;
+                margin-top: 1rem;
+            }
             .cf-row { grid-template-columns: 1fr; }
+            .blog-footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
         }
     </style>
 </head>
@@ -317,18 +400,27 @@
 
     <div id="scroll-progress"></div>
 
+    <!-- Overlay menu mobile -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
     <!-- HEADER -->
     <header id="hdr">
         <a href="index.html">
             <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
         </a>
-        <nav class="nav-links">
+        <nav class="nav-links" id="navLinks">
             <a href="index.html#expertises">Expertises</a>
             <a href="index.html#methode">Méthode</a>
             <a href="index.html#equipe">Équipe</a>
             <a href="blog.html" class="active">Blog</a>
+            <a href="#discussion">Discussion</a>
             <a href="index.html#contact" class="nav-contact-btn">Contact</a>
         </nav>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
     <!-- BLOG HERO -->
@@ -555,6 +647,33 @@
 
     </div><!-- /blog-main -->
 
+    <!-- DISCUSSION GLOBALE -->
+    <section class="global-discussion reveal" id="discussion">
+        <div class="global-discussion-label">Espace libre</div>
+        <h2>Discussion générale</h2>
+        <p>Un sujet qui vous tient à cœur ? Une question sur nos activités, la transition écologique, ou simplement envie d'échanger avec l'équipe Hélios ? Laissez un message ici.</p>
+
+        <div class="comments-list" id="list-general"></div>
+        <div class="comment-form-title">Rejoindre la discussion</div>
+        <form class="comment-form" onsubmit="addComment(event, 'general')">
+            <div class="cf-row">
+                <div class="cf-group">
+                    <label>Prénom *</label>
+                    <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
+                </div>
+                <div class="cf-group">
+                    <label>Sujet / Organisation</label>
+                    <input type="text" name="org" placeholder="Facultatif" maxlength="60">
+                </div>
+            </div>
+            <div class="cf-group">
+                <label>Votre message *</label>
+                <textarea name="message" required placeholder="Partagez votre question, réflexion ou suggestion…" maxlength="1000"></textarea>
+            </div>
+            <button type="submit" class="btn-comment">Publier mon message</button>
+        </form>
+    </section>
+
     <!-- FOOTER -->
     <div class="blog-footer">
         <p>&copy; 2026 — Hélios Junior Conseil · ENSIP Poitiers</p>
@@ -662,8 +781,32 @@
             .replace(/'/g, '&#39;');
     }
 
+    /* ---- Menu hamburger ---- */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function openMenu() {
+        navLinks.classList.add('open');
+        navOverlay.classList.add('open');
+        navToggle.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+        navLinks.classList.remove('open');
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+
+    navToggle.addEventListener('click', () => navLinks.classList.contains('open') ? closeMenu() : openMenu());
+    navOverlay.addEventListener('click', closeMenu);
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
     /* ---- Init: render existing comments & auto-open if hash matches ---- */
-    ['a1', 'a2', 'a3'].forEach(id => renderComments(id));
+    ['a1', 'a2', 'a3', 'general'].forEach(id => renderComments(id));
 
     const hash = window.location.hash;
     if (hash === '#article-1') toggleArticle('a1');
