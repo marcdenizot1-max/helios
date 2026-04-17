@@ -430,7 +430,6 @@
         <a href="index.html#methode">Méthode</a>
         <a href="index.html#equipe">Équipe</a>
         <a href="blog.html" class="active">Blog</a>
-        <a href="#discussion">Discussion</a>
         <a href="index.html#contact" class="nav-contact-btn">Contact</a>
     </nav>
 
@@ -492,29 +491,7 @@
                     </div>
                 </div>
 
-                <!-- Commentaires article 1 -->
-                <div class="comments-section" id="comments-a1">
-                    <div class="comments-title">Discussion</div>
-                    <div class="comments-list" id="list-a1"></div>
-                    <div class="comment-form-title">Rejoindre la discussion</div>
-                    <form class="comment-form" onsubmit="addComment(event, 'a1')">
-                        <div class="cf-row">
-                            <div class="cf-group">
-                                <label>Prénom *</label>
-                                <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
-                            </div>
-                            <div class="cf-group">
-                                <label>Organisation</label>
-                                <input type="text" name="org" placeholder="Facultatif" maxlength="60">
-                            </div>
-                        </div>
-                        <div class="cf-group">
-                            <label>Votre message *</label>
-                            <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
-                        </div>
-                        <button type="submit" class="btn-comment">Publier mon commentaire</button>
-                    </form>
-                </div>
+
             </article>
 
             <!-- ==================== ARTICLE 2 ==================== -->
@@ -550,29 +527,7 @@
                     </div>
                 </div>
 
-                <!-- Commentaires article 2 -->
-                <div class="comments-section" id="comments-a2">
-                    <div class="comments-title">Discussion</div>
-                    <div class="comments-list" id="list-a2"></div>
-                    <div class="comment-form-title">Rejoindre la discussion</div>
-                    <form class="comment-form" onsubmit="addComment(event, 'a2')">
-                        <div class="cf-row">
-                            <div class="cf-group">
-                                <label>Prénom *</label>
-                                <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
-                            </div>
-                            <div class="cf-group">
-                                <label>Organisation</label>
-                                <input type="text" name="org" placeholder="Facultatif" maxlength="60">
-                            </div>
-                        </div>
-                        <div class="cf-group">
-                            <label>Votre message *</label>
-                            <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
-                        </div>
-                        <button type="submit" class="btn-comment">Publier mon commentaire</button>
-                    </form>
-                </div>
+
             </article>
 
             <!-- ==================== ARTICLE 3 ==================== -->
@@ -605,28 +560,108 @@
                     </div>
                 </div>
 
-                <!-- Commentaires article 3 -->
-                <div class="comments-section" id="comments-a3">
-                    <div class="comments-title">Discussion</div>
-                    <div class="comments-list" id="list-a3"></div>
-                    <div class="comment-form-title">Rejoindre la discussion</div>
-                    <form class="comment-form" onsubmit="addComment(event, 'a3')">
-                        <div class="cf-row">
-                            <div class="cf-group">
-                                <label>Prénom *</label>
-                                <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
-                            </div>
-                            <div class="cf-group">
-                                <label>Organisation</label>
-                                <input type="text" name="org" placeholder="Facultatif" maxlength="60">
-                            </div>
-                        </div>
-                        <div class="cf-group">
-                            <label>Votre message *</label>
-                            <textarea name="message" required placeholder="Posez une question, partagez votre expérience…" maxlength="1000"></textarea>
-                        </div>
-                        <button type="submit" class="btn-comment">Publier mon commentaire</button>
-                    </form>
+
+            </article>
+
+            <!-- ==================== ARTICLE 4 ==================== -->
+            <article class="article-card reveal" id="article-4">
+                <div class="article-meta">
+                    <span class="article-tag">Réglementation · CSRD</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">12 mars 2026 — 6 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a4')">CSRD : ce que la nouvelle directive européenne change pour votre organisation</h2>
+                <p class="article-intro">Entrée en vigueur progressive depuis 2024, la Corporate Sustainability Reporting Directive impose de nouvelles obligations de reporting environnemental à des milliers d'entreprises européennes. Qui est concerné ? Quelles données fournir ? Hélios fait le point.</p>
+                <button class="btn-read" id="btn-a4" onclick="toggleArticle('a4')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a4">
+                    <div class="article-body-inner">
+                        <p>La CSRD (Corporate Sustainability Reporting Directive) est la directive européenne qui succède à la NFRD et étend considérablement le périmètre du reporting extra-financier. Elle s'applique dès l'exercice 2024 aux grandes entreprises cotées, puis progressivement jusqu'en 2026 aux PME cotées et aux filiales de groupes non européens.</p>
+
+                        <h3>Qui est concerné ?</h3>
+                        <p>En France, on estime que plus de 50 000 entreprises seront soumises à la CSRD d'ici 2026, contre 900 sous l'ancien régime NFRD. Les critères d'assujettissement combinent le nombre de salariés (> 250), le chiffre d'affaires (> 40 M€) et le total bilan (> 20 M€). Deux conditions sur trois suffisent.</p>
+
+                        <h3>Les ESRS : un référentiel exigeant</h3>
+                        <p>Le reporting CSRD s'appuie sur les European Sustainability Reporting Standards (ESRS), développés par l'EFRAG. Ces normes couvrent les dimensions environnementales (changement climatique, biodiversité, ressources en eau), sociales et de gouvernance. L'exigence centrale est la double matérialité : l'entreprise doit analyser à la fois son impact sur l'environnement et les risques climatiques qui pèsent sur elle.</p>
+
+                        <h3>Anticiper plutôt que subir</h3>
+                        <p>Les entreprises qui se préparent dès aujourd'hui disposent d'un avantage stratégique réel : elles structurent leur collecte de données, identifient leurs risques matériels et construisent une narration cohérente vis-à-vis de leurs parties prenantes. Chez Hélios, nous vous accompagnons dans cette analyse de double matérialité et la préparation de votre rapport de durabilité.</p>
+
+                        <p>Vous souhaitez évaluer votre niveau de préparation CSRD ? Contactez-nous à <a href="mailto:contact@helios-juniorconseil.com" style="color:var(--bleu-helios)">contact@helios-juniorconseil.com</a>.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==================== ARTICLE 5 ==================== -->
+            <article class="article-card reveal" id="article-5">
+                <div class="article-meta">
+                    <span class="article-tag">Économie Circulaire · Ressources</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">28 fév. 2026 — 5 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a5')">De l'économie linéaire à l'économie circulaire : comment réduire votre dépendance aux ressources</h2>
+                <p class="article-intro">Face à la tension croissante sur les matières premières et à l'urgence climatique, l'économie circulaire offre un modèle alternatif créateur de valeur. Quelles stratégies adopter concrètement ?</p>
+                <button class="btn-read" id="btn-a5" onclick="toggleArticle('a5')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a5">
+                    <div class="article-body-inner">
+                        <p>Le modèle économique dominant — extraire, fabriquer, jeter — atteint ses limites physiques et climatiques. L'économie circulaire propose une alternative systémique fondée sur trois principes : éliminer les déchets et la pollution dès la conception, maintenir les produits et matériaux en usage le plus longtemps possible, régénérer les systèmes naturels.</p>
+
+                        <h3>Les sept stratégies circulaires</h3>
+                        <ul>
+                            <li><strong>Réparer</strong> : prolonger la durée de vie des équipements plutôt que les remplacer</li>
+                            <li><strong>Réutiliser</strong> : mettre en place des circuits de reemploi pour les composants</li>
+                            <li>Éco-concevoir : intégrer la fin de vie dès la phase de design produit</li>
+                            <li>Mutualiser : partager des actifs sous-utilisés (machines, surfaces, flottes)</li>
+                            <li>Valoriser les déchets : transformer les rebuts en ressources pour d'autres filières</li>
+                        </ul>
+
+                        <h3>Des bénéfices à la fois environnementaux et économiques</h3>
+                        <p>Les études menées par l'Ellen MacArthur Foundation estiment qu'une transition circulaire à l'échelle européenne pourrait générer 1 800 milliards d'euros de valeur nette d'ici 2030 tout en réduisant massivement les émissions de CO₂ industrielles. Pour une entreprise, cela se traduit souvent par des économies d'approvisionnement et une meilleure maîtrise des risques de rupture.</p>
+
+                        <h3>Notre accompagnement</h3>
+                        <p>Hélios réalise des diagnostics de circularité adaptés à votre secteur, identifiant les flux de matières et énergies et les leviers de transformation les plus pertinents. Le livrable inclut une feuille de route hiérarchisée et chiffrée.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==================== ARTICLE 6 ==================== -->
+            <article class="article-card reveal" id="article-6">
+                <div class="article-meta">
+                    <span class="article-tag">Méthodologie · ACV</span>
+                    <span class="article-sep">·</span>
+                    <span class="article-date">15 jan. 2026 — 7 min de lecture</span>
+                </div>
+                <h2 onclick="toggleArticle('a6')">L'Analyse du Cycle de Vie (ACV) : comprendre l'impact réel de vos produits</h2>
+                <p class="article-intro">L'ACV est la méthode de référence pour évaluer l'impact environnemental d'un produit ou service de sa fabrication à sa fin de vie. Une approche indispensable pour une communication environnementale crédible et une amélioration continue.</p>
+                <button class="btn-read" id="btn-a6" onclick="toggleArticle('a6')">
+                    Lire l'article <span class="arrow">→</span>
+                </button>
+
+                <div class="article-body" id="body-a6">
+                    <div class="article-body-inner">
+                        <p>L'Analyse du Cycle de Vie (ACV) est une méthode normalisée (ISO 14040/14044) qui permet de quantifier les impacts environnementaux d'un produit, service ou procédé à chacune de ses étapes : extraction des matières premières, fabrication, distribution, usage, fin de vie. C'est l'outil le plus complet pour éviter les solutions qui ne font que déplacer le problème.</p>
+
+                        <h3>Les quatre étapes d'une ACV</h3>
+                        <ul>
+                            <li><strong>Définition du champ</strong> : objectif de l'étude, unité fonctionnelle, frontières du système</li>
+                            <li><strong>Inventaire des flux</strong> : recensement de toutes les entrées (matières, énergie) et sorties (émissions, déchets)</li>
+                            <li><strong>Évaluation des impacts</strong> : traduction des flux en catégories d'impact (changement climatique, acidification, eutrophisation…)</li>
+                            <li><strong>Interprétation</strong> : identification des points chauds et recommandations d'amélioration</li>
+                        </ul>
+
+                        <h3>ACV et éco-conception</h3>
+                        <p>L'ACV est particulièrement utile en phase de conception : comparer deux alternatives de matériaux, évaluer l'impact d'une modification procédé, ou choisir entre plusieurs scénarios logistiques. Elle évite les arbitrages fondés sur des intuitions et fournit une base objective pour la prise de décision.</p>
+
+                        <h3>Une base solide pour la communication</h3>
+                        <p>Dans un contexte de réglementation croissante contre l'éco-blanchiment (Green Claims Directive), disposer d'une ACV réalisée selon les normes ISO est une garantie de crédibilité pour toute allégation environnementale. Hélios vous accompagne dans la réalisation d'ACV simplifiées ou complètes adaptées à vos besoins.</p>
+
+                        <p>Vous avez un projet d'ACV ? Écrivez-nous à <a href="mailto:contact@helios-juniorconseil.com" style="color:var(--bleu-helios)">contact@helios-juniorconseil.com</a>.</p>
+                    </div>
                 </div>
             </article>
 
@@ -637,18 +672,12 @@
             <div class="sidebar-block">
                 <h3>Articles</h3>
                 <div class="sidebar-links">
-                    <a href="#article-1" class="sidebar-link" onclick="toggleArticle('a1')">
-                        Mesurer son empreinte carbone
-                        <span class="sidebar-count" id="cnt-a1">0</span>
-                    </a>
-                    <a href="#article-2" class="sidebar-link" onclick="toggleArticle('a2')">
-                        Risques climatiques physiques
-                        <span class="sidebar-count" id="cnt-a2">0</span>
-                    </a>
-                    <a href="#article-3" class="sidebar-link" onclick="toggleArticle('a3')">
-                        Junior-entreprise & conseil
-                        <span class="sidebar-count" id="cnt-a3">0</span>
-                    </a>
+                    <a href="#article-1" class="sidebar-link" onclick="toggleArticle('a1')">Mesurer son empreinte carbone</a>
+                    <a href="#article-2" class="sidebar-link" onclick="toggleArticle('a2')">Risques climatiques physiques</a>
+                    <a href="#article-3" class="sidebar-link" onclick="toggleArticle('a3')">Junior-entreprise &amp; conseil</a>
+                    <a href="#article-4" class="sidebar-link" onclick="toggleArticle('a4')">CSRD &amp; reporting</a>
+                    <a href="#article-5" class="sidebar-link" onclick="toggleArticle('a5')">Économie circulaire</a>
+                    <a href="#article-6" class="sidebar-link" onclick="toggleArticle('a6')">Analyse du Cycle de Vie</a>
                 </div>
             </div>
 
@@ -670,32 +699,7 @@
 
     </div><!-- /blog-main -->
 
-    <!-- DISCUSSION GLOBALE -->
-    <section class="global-discussion reveal" id="discussion">
-        <div class="global-discussion-label">Espace libre</div>
-        <h2>Discussion générale</h2>
-        <p>Un sujet qui vous tient à cœur ? Une question sur nos activités, la transition écologique, ou simplement envie d'échanger avec l'équipe Hélios ? Laissez un message ici.</p>
 
-        <div class="comments-list" id="list-general"></div>
-        <div class="comment-form-title">Rejoindre la discussion</div>
-        <form class="comment-form" onsubmit="addComment(event, 'general')">
-            <div class="cf-row">
-                <div class="cf-group">
-                    <label>Prénom *</label>
-                    <input type="text" name="prenom" required placeholder="Votre prénom" maxlength="40">
-                </div>
-                <div class="cf-group">
-                    <label>Sujet / Organisation</label>
-                    <input type="text" name="org" placeholder="Facultatif" maxlength="60">
-                </div>
-            </div>
-            <div class="cf-group">
-                <label>Votre message *</label>
-                <textarea name="message" required placeholder="Partagez votre question, réflexion ou suggestion…" maxlength="1000"></textarea>
-            </div>
-            <button type="submit" class="btn-comment">Publier mon message</button>
-        </form>
-    </section>
 
     <!-- FOOTER -->
     <div class="blog-footer">
@@ -733,77 +737,6 @@
         }
     }
 
-    /* ---- localStorage comments ---- */
-    const STORE = 'helios_blog_';
-
-    function loadComments(articleId) {
-        const raw = localStorage.getItem(STORE + articleId);
-        return raw ? JSON.parse(raw) : [];
-    }
-
-    function saveComments(articleId, comments) {
-        localStorage.setItem(STORE + articleId, JSON.stringify(comments));
-    }
-
-    function renderComments(articleId) {
-        const comments = loadComments(articleId);
-        const list = document.getElementById('list-' + articleId);
-        const counter = document.getElementById('cnt-' + articleId);
-        if (!list) return;
-
-        if (counter) counter.textContent = comments.length;
-
-        if (comments.length === 0) {
-            list.innerHTML = '<p class="no-comments">Aucun commentaire pour l\'instant. Soyez le premier à partager votre avis !</p>';
-            return;
-        }
-
-        list.innerHTML = comments.map(c => `
-            <div class="comment-item">
-                <div class="comment-header">
-                    <span class="comment-author">${escHtml(c.prenom)}${c.org ? ' <span style="font-weight:400;color:var(--gris-texte)">· ' + escHtml(c.org) + '</span>' : ''}</span>
-                    <span class="comment-time">${c.date}</span>
-                </div>
-                <div class="comment-text">${escHtml(c.message).replace(/\n/g, '<br>')}</div>
-            </div>
-        `).join('');
-    }
-
-    function addComment(e, articleId) {
-        e.preventDefault();
-        const form = e.target;
-        const prenom  = form.prenom.value.trim();
-        const org     = form.org ? form.org.value.trim() : '';
-        const message = form.message.value.trim();
-
-        if (!prenom || !message) return;
-
-        const now = new Date();
-        const date = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-
-        const comments = loadComments(articleId);
-        comments.push({ prenom, org, message, date });
-        saveComments(articleId, comments);
-        renderComments(articleId);
-
-        form.reset();
-
-        // Scroll to latest comment
-        const list = document.getElementById('list-' + articleId);
-        if (list && list.lastElementChild) {
-            list.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-    }
-
-    function escHtml(str) {
-        return str
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
     /* ---- Menu hamburger ---- */
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
@@ -828,13 +761,14 @@
     navOverlay.addEventListener('click', closeMenu);
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-    /* ---- Init: render existing comments & auto-open if hash matches ---- */
-    ['a1', 'a2', 'a3', 'general'].forEach(id => renderComments(id));
-
+    /* ---- Auto-open if hash matches ---- */
     const hash = window.location.hash;
     if (hash === '#article-1') toggleArticle('a1');
     else if (hash === '#article-2') toggleArticle('a2');
     else if (hash === '#article-3') toggleArticle('a3');
+    else if (hash === '#article-4') toggleArticle('a4');
+    else if (hash === '#article-5') toggleArticle('a5');
+    else if (hash === '#article-6') toggleArticle('a6');
     </script>
 
 </body>
