@@ -12,7 +12,8 @@ export default defineConfig({
         'articles/analyse-cycle-vie': resolve(__dirname, 'articles/analyse-cycle-vie.html'),
         'articles/projet-archives-vienne': resolve(__dirname, 'articles/projet-archives-vienne.html'),
         'articles/reporting-csrd': resolve(__dirname, 'articles/reporting-csrd.html'),
-        'articles/anthony-viaux-intervenant': resolve(__dirname, 'articles/anthony-viaux-intervenant.html')
+        'articles/anthony-viaux-intervenant': resolve(__dirname, 'articles/anthony-viaux-intervenant.html'),
+        contact: resolve(__dirname, 'contact.html')
       },
     },
   },

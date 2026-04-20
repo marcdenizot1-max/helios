@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Hélios Junior Conseil</title>
+    <meta name="description" content="Contactez Hélios Junior Conseil pour un projet de calcul d'empreinte carbone, schéma de résilience ou conseil stratégique environnemental.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon-h.png">
+    <link rel="apple-touch-icon" href="assets/favicon-h.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bleu-encre:  #051024;
+            --bleu-helios: #1B4F8A;
+            --blanc-casse: #F9F9F9;
+            --gris-texte:  #5A6069;
+            --ligne-fine:  rgba(5, 16, 36, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--blanc-casse);
+            color: var(--bleu-encre);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif { font-family: 'Lora', serif; font-weight: 400; }
+
+        /* ============================================================
+           SCROLL PROGRESS BAR
+        ============================================================ */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bleu-helios) 0%, #4A9EE8 50%, #66C2FF 100%);
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.08s linear;
+        }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.75s cubic-bezier(.22,1,.36,1),
+                        transform 0.75s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
+
+        /* Underline nav */
+        .nav-links a:not(.nav-contact-btn) { position: relative; }
+        .nav-links a:not(.nav-contact-btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 100%; height: 1px;
+            background: var(--bleu-helios);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
+        .nav-links a:not(.nav-contact-btn):hover::after { transform: scaleX(1); }
+
+        header { transition: box-shadow 0.3s; }
+        header.scrolled { box-shadow: 0 2px 28px rgba(5,16,36,0.09); }
+
+        /* ============================================================
+           HEADER
+        ============================================================ */
+        header {
+            padding: 1.1rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--ligne-fine);
+            background-color: rgba(249,249,249,0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-img {
+            height: 68px; width: auto;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+        }
+        .logo-img:hover { transform: scale(1.05); }
+        .nav-links {
+            display: flex; gap: 2.8rem; align-items: center;
+            position: fixed; top: 0; right: 5vw;
+            height: calc(68px + 2.2rem);
+            z-index: 101;
+            background: transparent;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--bleu-encre);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--bleu-helios); }
+        .nav-contact-btn {
+            padding: 0.6rem 1.4rem;
+            border: 1.5px solid var(--bleu-encre);
+            border-radius: 2px;
+            transition: background 0.25s, color 0.25s, border-color 0.25s !important;
+        }
+        .nav-contact-btn:hover {
+            background-color: var(--bleu-encre) !important;
+            color: white !important;
+        }
+        .nav-contact-btn.active {
+            background-color: var(--bleu-encre);
+            color: white !important;
+        }
+
+        /* ============================================================
+           PAGE HERO
+        ============================================================ */
+        .page-hero {
+            padding: 7rem 5vw 5rem;
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+        .page-hero-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--bleu-helios);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .page-hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.05;
+            letter-spacing: -1px;
+            max-width: 700px;
+        }
+        .page-hero p {
+            margin-top: 2rem;
+            font-size: 1.05rem;
+            color: var(--gris-texte);
+            line-height: 1.8;
+            max-width: 560px;
+        }
+
+        /* ============================================================
+           CONTACT SECTION
+        ============================================================ */
+        .contact-section {
+            padding: 7rem 5vw 8rem;
+            background-color: white;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 7rem;
+            align-items: start;
+        }
+
+        /* Info colonne gauche */
+        .contact-info h2 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .contact-info p {
+            color: var(--gris-texte);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--bleu-encre);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--ligne-fine);
+            transition: padding-left 0.3s, color 0.25s;
+        }
+        .contact-link:first-child { border-top: 1px solid var(--ligne-fine); }
+        .contact-link:hover { padding-left: 0.6rem; color: var(--bleu-helios); }
+        .contact-link-icon {
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--ligne-fine);
+            border-radius: 50%;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        .contact-link:hover .contact-link-icon {
+            background: var(--bleu-helios);
+            border-color: var(--bleu-helios);
+            color: white;
+        }
+
+        /* Bloc réponse rapide */
+        .response-block {
+            margin-top: 3rem;
+            padding: 1.5rem 2rem;
+            background: var(--blanc-casse);
+            border: 1px solid var(--ligne-fine);
+        }
+        .response-block p {
+            font-size: 0.85rem;
+            color: var(--gris-texte);
+            margin: 0;
+            line-height: 1.6;
+        }
+        .response-block strong { color: var(--bleu-encre); }
+
+        /* Formulaire */
+        .contact-form { display: flex; flex-direction: column; gap: 1.4rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--bleu-encre);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border: 1px solid var(--ligne-fine);
+            border-radius: 2px;
+            padding: 0.85rem 1rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95rem;
+            color: var(--bleu-encre);
+            background: var(--blanc-casse);
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+            -webkit-appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--bleu-helios);
+            box-shadow: 0 0 0 3px rgba(27,79,138,0.09);
+            background: white;
+        }
+        .form-group textarea { resize: vertical; min-height: 160px; }
+        .btn-submit {
+            align-self: flex-start;
+            padding: 1rem 2.5rem;
+            background-color: var(--bleu-encre);
+            color: white;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.25s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover {
+            background-color: var(--bleu-helios);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(27,79,138,0.3);
+        }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .form-success {
+            display: none;
+            padding: 1.2rem 1.5rem;
+            background: rgba(27,79,138,0.06);
+            border-left: 3px solid var(--bleu-helios);
+            color: var(--bleu-encre);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Ripple */
+        .ripple-btn { position: relative; overflow: hidden; }
+        .ripple-btn .ripple-wave {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.28);
+            transform: scale(0);
+            animation: rippleAnim 0.65s linear;
+            pointer-events: none;
+        }
+        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+        /* ============================================================
+           EXPERTISES RAPIDES
+        ============================================================ */
+        .expertises-strip {
+            padding: 5rem 5vw;
+            border-top: 1px solid var(--ligne-fine);
+            border-bottom: 1px solid var(--ligne-fine);
+            background: var(--blanc-casse);
+        }
+        .strip-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--bleu-helios);
+            font-weight: 600;
+            margin-bottom: 3rem;
+        }
+        .strip-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-left: 1px solid var(--ligne-fine);
+        }
+        .strip-item {
+            padding: 2.5rem 2.5rem;
+            border-right: 1px solid var(--ligne-fine);
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+        .strip-num {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            color: rgba(5,16,36,0.08);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .strip-item h3 { font-size: 1.05rem; font-family: 'Manrope', sans-serif; font-weight: 600; margin-bottom: 0.6rem; }
+        .strip-item p { font-size: 0.88rem; color: var(--gris-texte); line-height: 1.7; }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer { padding: 5rem 5vw 3rem; background-color: white; border-top: 1px solid var(--ligne-fine); }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--ligne-fine);
+        }
+        .footer-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.15;
+        }
+        .btn-contact {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--bleu-helios);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s, transform 0.25s, box-shadow 0.3s;
+        }
+        .btn-contact:hover {
+            background-color: var(--bleu-encre);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(27,79,138,0.25);
+        }
+        .footer-info {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1.5rem;
+        }
+        .footer-logos { display: flex; align-items: center; gap: 2rem; }
+        .footer-logos img { height: 42px; width: auto; object-fit: contain; }
+        .footer-social { display: flex; gap: 1.2rem; }
+        .footer-social a {
+            display: flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px;
+            border: 1px solid var(--ligne-fine);
+            border-radius: 50%;
+            text-decoration: none;
+            color: var(--bleu-encre);
+            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.3s;
+        }
+        .footer-social a:hover {
+            border-color: var(--bleu-helios);
+            background: var(--bleu-helios);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+        .footer-bottom {
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-bottom p { font-size: 0.8rem; color: var(--gris-texte); }
+
+        /* ============================================================
+           MENU HAMBURGER (MOBILE)
+        ============================================================ */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 4px;
+            z-index: 201;
+            position: relative;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px; height: 2px;
+            background: var(--bleu-encre);
+            border-radius: 2px;
+            transition: transform 0.35s cubic-bezier(.22,1,.36,1), opacity 0.25s;
+        }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(5,16,36,0.45);
+            z-index: 149;
+        }
+        .nav-overlay.open { display: block; }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .strip-grid { grid-template-columns: 1fr; }
+            .footer-top { flex-direction: column; gap: 3rem; }
+            .footer-info { text-align: left; align-items: flex-start; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: flex !important;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: 0;
+                width: min(300px, 82vw);
+                height: 100dvh;
+                background: var(--blanc-casse);
+                padding: 6rem 2.5rem 3rem;
+                gap: 0;
+                box-shadow: -6px 0 40px rgba(5,16,36,0.14);
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+                z-index: 200;
+                border-left: 1px solid var(--ligne-fine);
+            }
+            .nav-links a {
+                padding: 1.1rem 0;
+                border-bottom: 1px solid var(--ligne-fine);
+                font-size: 0.9rem;
+                letter-spacing: 1.5px;
+            }
+            .nav-links a:last-child { border-bottom: none; margin-top: 1.5rem; border: none !important; box-shadow: inset 0 0 0 1.5px var(--bleu-encre); }
+            .nav-links.open { transform: translateX(0); }
+            .nav-contact-btn {
+                display: inline-block !important;
+                text-align: center;
+                margin-top: 1rem;
+                border: none !important;
+                box-shadow: inset 0 0 0 1.5px var(--bleu-encre);
+            }
+            .form-row { grid-template-columns: 1fr; }
+            .page-hero { padding: 5rem 5vw 4rem; }
+            .contact-section { padding: 5rem 5vw; }
+            .expertises-strip { padding: 4rem 5vw; }
+            footer { padding: 4rem 5vw 2rem; }
+        }
+        @media (max-width: 480px) {
+            .strip-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="/#expertises">Expertises</a>
+        <a href="/#methode">Méthode</a>
+        <a href="/equipe">Équipe</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact" class="nav-contact-btn active">Contact</a>
+    </nav>
+
+    <header>
+        <a href="/">
+            <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil" class="logo-img">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- ============================================================
+         PAGE HERO
+    ============================================================ -->
+    <section class="page-hero">
+        <p class="page-hero-label reveal">Hélios Junior Conseil</p>
+        <h1 class="reveal reveal-d1">Parlons de votre<br>projet.</h1>
+        <p class="reveal reveal-d2">Calcul d'empreinte carbone, schéma de résilience, conseil stratégique… Décrivez-nous votre besoin, nous vous répondons sous 48h.</p>
+    </section>
+
+    <!-- ============================================================
+         CONTACT PRINCIPAL
+    ============================================================ -->
+    <section class="contact-section">
+        <div class="contact-grid">
+
+            <!-- Colonne gauche : infos -->
+            <div class="contact-info reveal-left">
+                <h2>Discutons de votre projet environnemental</h2>
+                <p>Que vous soyez une entreprise privée, une collectivité ou un organisme public, notre équipe d'ingénieurs étudiants de l'ENSIP Poitiers est là pour vous accompagner dans votre démarche de transition climatique.</p>
+
+                <div class="contact-links">
+                    <a href="mailto:contact@helios-juniorconseil.com" class="contact-link">
+                        <span class="contact-link-icon">✉</span>
+                        contact@helios-juniorconseil.com
+                    </a>
+                    <a href="https://www.linkedin.com/company/helios-jconseil/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">in</span>
+                        LinkedIn — Hélios Junior Conseil
+                    </a>
+                    <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">🎓</span>
+                        ENSIP Poitiers
+                    </a>
+                    <a href="https://www.instagram.com/junior.helios/" target="_blank" rel="noopener" class="contact-link">
+                        <span class="contact-link-icon">📷</span>
+                        @junior.helios
+                    </a>
+                </div>
+
+                <div class="response-block reveal reveal-d3">
+                    <p><strong>Délai de réponse :</strong> Notre équipe s'engage à vous répondre sous <strong>48h ouvrées</strong>. Pour toute urgence, privilégiez le contact par e-mail directement.</p>
+                </div>
+            </div>
+
+            <!-- Colonne droite : formulaire -->
+            <form class="contact-form reveal-right" id="contactForm"
+                  action="https://formsubmit.co/ajax/contact@helios-juniorconseil.com"
+                  method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="f-prenom">Prénom *</label>
+                        <input type="text" id="f-prenom" name="prenom" required placeholder="Votre prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="f-nom">Nom *</label>
+                        <input type="text" id="f-nom" name="nom" required placeholder="Votre nom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f-organisation">Organisation</label>
+                    <input type="text" id="f-organisation" name="organisation" placeholder="Votre entreprise ou collectivité">
+                </div>
+                <div class="form-group">
+                    <label for="f-email">Email *</label>
+                    <input type="email" id="f-email" name="email" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="f-sujet">Sujet</label>
+                    <select id="f-sujet" name="sujet">
+                        <option value="">Choisir un sujet…</option>
+                        <option value="Calcul d'empreinte carbone">Calcul d'empreinte carbone</option>
+                        <option value="Schéma de Résilience">Schéma de Résilience</option>
+                        <option value="Conseil Stratégique">Conseil Stratégique</option>
+                        <option value="Partenariat">Partenariat</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="f-message">Message *</label>
+                    <textarea id="f-message" name="message" required placeholder="Décrivez votre projet ou votre demande…"></textarea>
+                </div>
+                <div class="form-success" id="formSuccess">
+                    ✓ Merci pour votre message ! Notre équipe vous répondra dans les 48h.
+                </div>
+                <button type="submit" class="btn-submit ripple-btn" id="submitBtn">
+                    Envoyer le message
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RAPPEL EXPERTISES
+    ============================================================ -->
+    <section class="expertises-strip">
+        <div class="strip-label reveal">Nos domaines d'intervention</div>
+        <div class="strip-grid">
+            <div class="strip-item reveal reveal-d1">
+                <div class="strip-num">01</div>
+                <h3>Calcul d'empreinte carbone</h3>
+                <p>Quantification secteur par secteur de vos émissions de CO2, en référence à la base BASE EMPREINTE ADEME. Identification des postes prioritaires et plan de réduction.</p>
+            </div>
+            <div class="strip-item reveal reveal-d2">
+                <div class="strip-num">02</div>
+                <h3>Schéma de Résilience</h3>
+                <p>Analyse des risques climatiques physiques et de transition auxquels votre organisation est exposée. Co-construction de stratégies d'adaptation concrètes.</p>
+            </div>
+            <div class="strip-item reveal reveal-d3">
+                <div class="strip-num">03</div>
+                <h3>Conseil Stratégique</h3>
+                <p>Regard neuf et solutions techniques fondées sur les dernières avancées académiques de l'ENSIP, au service de votre transition environnementale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-cta reveal">
+                <h2>Prêt à évaluer votre impact carbone ?</h2>
+                <a href="#" onclick="document.getElementById('f-prenom').focus(); return false;" class="btn-contact">Démarrer une étude</a>
+            </div>
+            <div class="footer-info reveal reveal-d2">
+                <div class="footer-logos">
+                    <img src="assets/logo-helios.webp" alt="Hélios Junior Conseil">
+                    <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener">
+                        <img src="assets/logo-ensip.webp" alt="ENSIP Poitiers">
+                    </a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/helios-jconseil/" target="_blank" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/ensip.helios/" target="_blank" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/junior.helios/" target="_blank" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                    </a>
+                </div>
+                <p style="font-size:0.82rem;color:var(--gris-texte);">contact@helios-juniorconseil.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 — Hélios Junior Conseil · École Nationale Supérieure d'Ingénieurs de Poitiers</p>
+        </div>
+    </footer>
+
+    <script>
+    /* ---- Scroll progress ---- */
+    const scrollBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        scrollBar.style.width = (window.scrollY / max * 100) + '%';
+    }, { passive: true });
+
+    /* ---- Mobile menu ---- */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+    function closeMenu() {
+        navToggle.classList.remove('open');
+        navLinks.classList.remove('open');
+        navOverlay.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            const opening = !navLinks.classList.contains('open');
+            if (opening) {
+                navToggle.classList.add('open');
+                navLinks.classList.add('open');
+                navOverlay.classList.add('open');
+                navToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            } else { closeMenu(); }
+        });
+        navOverlay.addEventListener('click', closeMenu);
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    }
+
+    /* ---- Scroll reveal ---- */
+    const revObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revObs.observe(el));
+
+    /* ---- Header shadow ---- */
+    const hdr = document.querySelector('header');
+    window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+    /* ---- Ripple ---- */
+    document.querySelectorAll('.ripple-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const wave = document.createElement('span');
+            wave.classList.add('ripple-wave');
+            const s = Math.max(rect.width, rect.height);
+            wave.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-rect.left-s/2}px;top:${e.clientY-rect.top-s/2}px`;
+            this.appendChild(wave);
+            setTimeout(() => wave.remove(), 700);
+        });
+    });
+
+    /* ---- Contact form (AJAX) ---- */
+    const form = document.getElementById('contactForm');
+    const fSuccess = document.getElementById('formSuccess');
+    const fBtn = document.getElementById('submitBtn');
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            fBtn.textContent = 'Envoi en cours…';
+            fBtn.disabled = true;
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    form.querySelectorAll('input, select, textarea').forEach(i => i.value = '');
+                    fSuccess.style.display = 'block';
+                    fBtn.textContent = 'Message envoyé ✓';
+                } else { throw new Error(); }
+            } catch {
+                fBtn.disabled = false;
+                fBtn.textContent = 'Envoyer le message';
+                alert('Une erreur est survenue. Veuillez nous écrire directement à contact@helios-juniorconseil.com');
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>
