@@ -11,7 +11,8 @@ export default defineConfig({
         'articles/guide-calcul-empreinte': resolve(__dirname, 'articles/guide-calcul-empreinte.html'),
         'articles/analyse-cycle-vie': resolve(__dirname, 'articles/analyse-cycle-vie.html'),
         'articles/projet-archives-vienne': resolve(__dirname, 'articles/projet-archives-vienne.html'),
-        'articles/reporting-csrd': resolve(__dirname, 'articles/reporting-csrd.html')
+        'articles/reporting-csrd': resolve(__dirname, 'articles/reporting-csrd.html'),
+        'articles/anthony-viaux-intervenant': resolve(__dirname, 'articles/anthony-viaux-intervenant.html')
       },
     },
   },
