@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hélios Junior Conseil | ENSIP Poitiers</title>
-    <meta name="description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, bilan carbone et stratégie environnementale.">
+    <meta name="description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, calcul d'empreinte carbone et stratégie environnementale.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon-h.png">
@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://helios-2sqq.vercel.app/">
     <meta property="og:site_name" content="Hélios Junior Conseil">
     <meta property="og:title" content="Hélios Junior Conseil | ENSIP Poitiers">
-    <meta property="og:description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, bilan carbone et stratégie environnementale.">
+    <meta property="og:description" content="Hélios est la Junior-Entreprise de l'ENSIP, spécialisée dans le conseil en résilience climatique, calcul d'empreinte carbone et stratégie environnementale.">
     <meta property="og:image" content="https://helios-2sqq.vercel.app/assets/og-image.png">
     <meta property="og:image:alt" content="Hélios Junior Conseil — ENSIP Poitiers">
     <meta property="og:locale" content="fr_FR">
@@ -58,32 +58,7 @@
             transition: width 0.08s linear;
         }
 
-        /* ============================================================
-           CUSTOM CURSOR
-        ============================================================ */
-        #cur, #cur-f {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-        }
-        #cur {
-            width: 8px; height: 8px;
-            background: var(--bleu-helios);
-            z-index: 9999;
-            transition: background 0.3s, width 0.3s, height 0.3s;
-        }
-        #cur-f {
-            width: 36px; height: 36px;
-            border: 1.5px solid var(--bleu-helios);
-            opacity: 0.45;
-            transition: width 0.35s cubic-bezier(.22,1,.36,1),
-                        height 0.35s cubic-bezier(.22,1,.36,1),
-                        opacity 0.35s, border-color 0.3s;
-        }
-        body.cur-hover #cur-f { width: 56px; height: 56px; opacity: 0.2; }
-        body.cur-hover #cur { width: 10px; height: 10px; background: #4A9EE8; }
+
 
         /* ============================================================
            ANIMATIONS
@@ -457,6 +432,7 @@
             padding-bottom: 2px;
             transition: letter-spacing 0.25s;
             cursor: pointer;
+            text-decoration: none;
         }
         .expertise-item:hover .expertise-tag { letter-spacing: 2.5px; }
 
@@ -697,7 +673,7 @@
         }
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.8rem;
             margin-top: 4rem;
         }
@@ -1118,9 +1094,7 @@
     <!-- Barre de progression scroll -->
     <div id="scroll-progress"></div>
 
-    <!-- Curseur personnalisé (desktop uniquement) -->
-    <div id="cur"></div>
-    <div id="cur-f"></div>
+
 
     <!-- ============================================================
          HEADER
@@ -1132,7 +1106,7 @@
     <nav class="nav-links" id="navLinks">
         <a href="#expertises">Expertises</a>
         <a href="#methode">Méthode</a>
-        <a href="#equipe">Équipe</a>
+        <a href="equipe.html">Équipe</a>
         <a href="blog.html">Blog</a>
         <a href="#contact" class="nav-contact-btn">Contact</a>
     </nav>
@@ -1165,7 +1139,7 @@
                  alt="Énergie et ingénierie"
                  loading="eager"
                  fetchpriority="high">
-            <div class="hero-badge">Fondée en 2024 · ENSIP Poitiers</div>
+            <div class="hero-badge">Fondée en 2025 · ENSIP Poitiers</div>
         </div>
     </section>
 
@@ -1174,11 +1148,11 @@
     ============================================================ -->
     <div class="stats-bar">
         <div class="stat-item reveal reveal-d1">
-            <span class="stat-number" data-target="2024" data-format="year">2024</span>
+            <span class="stat-number" data-target="2025" data-format="year">2025</span>
             <span class="stat-label">Année de création</span>
         </div>
         <div class="stat-item reveal reveal-d2">
-            <span class="stat-number">ADEME</span>
+            <span class="stat-number">BASE EMPREINTE ADEME</span>
             <span class="stat-label">Base de données certifiée</span>
         </div>
         <div class="stat-item reveal reveal-d3">
@@ -1198,7 +1172,7 @@
         <div class="quote-bg">Hélios</div>
         <p class="section-label reveal reveal-d1">Le mot du Président</p>
         <h2 class="reveal reveal-d2">"Une junior entreprise reflète bien souvent l'identité de son école. Il nous semblait donc essentiel de faire d'Hélios une structure résolument engagée dans les enjeux environnementaux, aujourd'hui au cœur des débats scientifiques."</h2>
-        <p class="quote-body reveal reveal-d3">Lancée en 2024, notre activité de conseil en résilience climatique offre aux étudiants une immersion concrète dans le monde professionnel, en lien direct avec les entreprises. Cette expérience nous permet d'apprendre à répondre à des besoins réels, à communiquer clairement nos résultats, et à mieux comprendre les défis liés à l'adaptation au changement climatique.</p>
+        <p class="quote-body reveal reveal-d3">Lancée en 2025, notre activité de conseil en résilience climatique offre aux étudiants une immersion concrète dans le monde professionnel, en lien direct avec les entreprises. Cette expérience nous permet d'apprendre à répondre à des besoins réels, à communiquer clairement nos résultats, et à mieux comprendre les défis liés à l'adaptation au changement climatique.</p>
         <p class="quote-author reveal reveal-d4">Raphaël Herraïz — Président d'Hélios Junior Conseil</p>
     </section>
 
@@ -1211,10 +1185,10 @@
             <div class="expertise-item reveal reveal-d1">
                 <div class="expertise-number">01</div>
                 <div class="expertise-content">
-                    <h3>Bilan<br>Carbone</h3>
+                    <h3>Calcul d'empreinte<br>carbone</h3>
                     <div class="expertise-desc">
-                        <p>Nous collaborons avec des entreprises souhaitant réduire leur empreinte carbone et mieux comprendre les sources qui la composent. L'ensemble des émissions est quantifié secteur par secteur, en nous appuyant sur la base de données <strong>BASE EMPREINTE de l'ADEME</strong>. Les résultats sont restitués dans un rapport détaillé accompagné de recommandations concrètes.</p>
-                        <span class="expertise-tag">Demander un devis</span>
+                        <p>Calcul des émissions de CO2, schéma de résilience, analyse des solutions. L'ensemble des émissions est quantifié secteur par secteur, en nous appuyant sur la base de données <strong>BASE EMPREINTE ADEME</strong>.</p>
+                        <a href="#contact" class="expertise-tag">Demander un devis</a>
                     </div>
                 </div>
             </div>
@@ -1224,7 +1198,7 @@
                     <h3>Schéma de<br>Résilience</h3>
                     <div class="expertise-desc">
                         <p>Analyse des risques climatiques physiques et de transition auxquels votre organisation est exposée. Nous co-construisons des stratégies d'adaptation concrètes pour pérenniser vos activités et anticiper les impacts du changement climatique sur votre chaîne de valeur.</p>
-                        <span class="expertise-tag">En savoir plus</span>
+                        <a href="#contact" class="expertise-tag">En savoir plus</a>
                     </div>
                 </div>
             </div>
@@ -1234,7 +1208,7 @@
                     <h3>Conseil<br>Stratégique</h3>
                     <div class="expertise-desc">
                         <p>Immersion au cœur de vos besoins réels. Nos étudiants apportent un regard neuf et des solutions techniques fondées sur les dernières avancées académiques de l'ENSIP, au service d'entreprises privées et de collectivités publiques engagées dans leur transition environnementale.</p>
-                        <span class="expertise-tag">Discuter de votre projet</span>
+                        <a href="#contact" class="expertise-tag">Discuter de votre projet</a>
                     </div>
                 </div>
             </div>
@@ -1260,7 +1234,7 @@
             <div class="methodo-step reveal reveal-d3">
                 <div class="methodo-step-num">03</div>
                 <h4>Analyse & calcul</h4>
-                <p>Les émissions sont calculées secteur par secteur en référence à la base de données BASE EMPREINTE de l'ADEME, garantissant une méthodologie certifiée et reconnue.</p>
+                <p>Les émissions sont calculées secteur par secteur en référence à la base de données BASE EMPREINTE ADEME, garantissant une méthodologie certifiée et reconnue.</p>
             </div>
             <div class="methodo-step reveal reveal-d4">
                 <div class="methodo-step-num">04</div>
@@ -1271,127 +1245,37 @@
     </section>
 
     <!-- ============================================================
-         ÉQUIPE
+         PARTENAIRES - CLIENTS
     ============================================================ -->
-    <section class="team-section" id="equipe">
-        <div class="section-header reveal">Notre équipe</div>
-        <div class="team-poles">
-
-            <!-- Pôle Bureau -->
-            <div class="team-pole reveal">
-                <div class="team-pole-title">Pôle Bureau</div>
-                <div class="bureau-grid">
-                    <div class="team-card team-card--president reveal-scale reveal-d1">
-                        <div class="team-avatar">RH</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Raphaël Herraïz</span>
-                            <span class="team-role">Président d'Hélios Junior Conseil</span>
-                            <span class="president-badge">Président</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d2">
-                        <div class="team-avatar">LC</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Lilian Coupet</span>
-                            <span class="team-role">Secrétaire</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d3">
-                        <div class="team-avatar">TC</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Tom Catalao</span>
-                            <span class="team-role">Trésorier</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pôle Études Carbone -->
-            <div class="team-pole reveal">
-                <div class="team-pole-title">Études Carbone & Synthèse</div>
-                <div class="team-cards">
-                    <div class="team-card reveal-scale reveal-d1">
-                        <div class="team-avatar">RH</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Raphaël Herraïz</span>
-                            <span class="team-role">Chargé d'étude carbone</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d2">
-                        <div class="team-avatar">TD</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Thomas Damiron</span>
-                            <span class="team-role">Chargé d'étude carbone · Coordinateur évènementiel</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d3">
-                        <div class="team-avatar">CJ</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Cléa Joassard</span>
-                            <span class="team-role">Chargée de synthèse</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pôle Communication -->
-            <div class="team-pole reveal">
-                <div class="team-pole-title">Pôle Communication</div>
-                <div class="team-cards">
-                    <div class="team-card reveal-scale reveal-d1">
-                        <div class="team-avatar">MD</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Marc Denizot</span>
-                            <span class="team-role">Site internet</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d2">
-                        <div class="team-avatar">BP</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Baptiste Pamies</span>
-                            <span class="team-role">Site internet</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d3">
-                        <div class="team-avatar">TC</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Tom Catalao</span>
-                            <span class="team-role">Site internet</span>
-                        </div>
-                    </div>
-                    <div class="team-card reveal-scale reveal-d4">
-                        <div class="team-avatar">LR</div>
-                        <div class="team-card-info">
-                            <span class="team-name">Line Le Rudulier</span>
-                            <span class="team-role">Compte Instagram</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <section class="partners-section" id="partenaires-clients" style="padding-bottom: 2rem;">
+        <div class="section-header reveal">Ils nous ont fait confiance</div>
+        <div class="partners-grid" style="display: flex; justify-content: center; align-items: center;">
+            <span class="partner-item reveal reveal-d1" style="padding: 2rem;">
+                <div style="font-weight: 700; text-align: center; color: var(--bleu-helios); font-size: 1.5rem; max-width: 300px; margin: 0 auto; line-height: 1.3;">Archives départementales de la Vienne</div>
+            </span>
         </div>
     </section>
 
     <!-- ============================================================
-         PARTENAIRES
+         PARTENAIRES - INSTITUTIONNELS ET ACADÉMIQUES
     ============================================================ -->
-    <section class="partners-section" id="partenaires">
-        <div class="section-header reveal">Ils nous ont fait confiance</div>
+    <section class="partners-section" id="partenaires-academiques" style="padding-top: 2rem; background-color: var(--blanc-casse);">
+        <div class="section-header reveal" style="font-size: 1.2rem; color: var(--gris-texte); margin-bottom: 2rem;">Nos partenaires institutionnels & académiques</div>
         <div class="partners-grid">
             <span class="partner-item reveal reveal-d1">
-                <img src="assets/logo-sg.webp" alt="Société Générale" loading="lazy">
+                <img src="assets/logo-sg.png" alt="Société Générale" loading="lazy" onerror="this.src='assets/logo-sg.webp'">
             </span>
             <a href="https://www.univ-poitiers.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d2">
-                <img src="assets/logo-partner3.webp" alt="Université de Poitiers" loading="lazy">
+                <img src="assets/logo-partner3.png" alt="Université de Poitiers" loading="lazy" onerror="this.src='assets/logo-partner3.webp'">
             </a>
             <span class="partner-item reveal reveal-d3">
-                <img src="assets/logo-partner2.webp" alt="Département de la Vienne" loading="lazy">
+                <img src="assets/logo-partner2.png" alt="Département de la Vienne" loading="lazy" onerror="this.src='assets/logo-partner2.webp'">
             </span>
             <a href="https://www.bordeaux-inp.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d4">
-                <img src="assets/logo-inpb.webp" alt="Bordeaux INP Aquitaine" loading="lazy">
+                <img src="assets/logo-inpb.png" alt="Bordeaux INP Aquitaine" loading="lazy" onerror="this.src='assets/logo-inpb.webp'">
             </a>
             <a href="https://ensip.univ-poitiers.fr/" target="_blank" rel="noopener" class="partner-item reveal reveal-d5">
-                <img src="assets/logo-partner1.webp" alt="ENSIP Poitiers" loading="lazy">
+                <img src="assets/logo-partner1.png" alt="ENSIP Poitiers" loading="lazy" onerror="this.src='assets/logo-partner1.webp'">
             </a>
         </div>
     </section>
@@ -1402,27 +1286,33 @@
     <section class="blog-section" id="blog">
         <div class="section-header reveal">Actualités & réflexions</div>
         <div class="blog-grid">
-            <a href="blog.html#article-1" class="blog-card reveal-up reveal-d1">
-                <div class="blog-tag">Expertise · Bilan Carbone</div>
-                <h3>Comment mesurer son empreinte carbone en 4 étapes</h3>
-                <p>La méthodologie BASE EMPREINTE de l'ADEME permet une quantification rigoureuse et reconnue des émissions de GES par secteur d'activité.</p>
-                <div class="blog-meta"><span>8 mars 2026</span><span>·</span><span>5 min</span></div>
+            <a href="/articles/guide-calcul-empreinte" class="blog-card reveal-up reveal-d1">
+                <div class="blog-tag">Expertise · Calcul d'empreinte carbone</div>
+                <h3>Comment réussir le calcul d'empreinte carbone de votre organisation ?</h3>
+                <p>Mesurer l'empreinte carbone est le premier pas vers une stratégie de transition efficace. Découvrez notre démarche pas à pas.</p>
+                <div class="blog-meta"><span>12 Avr 2026</span><span>·</span><span>5 min</span></div>
             </a>
-            <a href="blog.html#article-2" class="blog-card reveal-up reveal-d2">
-                <div class="blog-tag">Résilience · Stratégie</div>
-                <h3>Adaptation climatique : les entreprises face aux risques physiques</h3>
-                <p>Les risques climatiques ne sont plus seulement des enjeux environnementaux : ils deviennent des risques financiers majeurs pour les organisations.</p>
-                <div class="blog-meta"><span>20 fév. 2026</span><span>·</span><span>7 min</span></div>
+            <a href="/articles/analyse-cycle-vie" class="blog-card reveal-up reveal-d2">
+                <div class="blog-tag">Méthodologie · ACV</div>
+                <h3>L'Analyse du Cycle de Vie (ACV) : pourquoi l'intégrer ?</h3>
+                <p>Comprendre l'impact global d'un produit, de l'extraction des matières premières jusqu'à sa fin de vie.</p>
+                <div class="blog-meta"><span>5 Avr 2026</span><span>·</span><span>6 min</span></div>
             </a>
-            <a href="blog.html#article-3" class="blog-card reveal-up reveal-d3">
-                <div class="blog-tag">Junior-Entreprise · ENSIP</div>
-                <h3>Pourquoi faire appel à une junior-entreprise pour votre conseil environnemental ?</h3>
-                <p>Compétences académiques de pointe, coûts maîtrisés et regard innovant : les atouts concrets d'Hélios pour votre organisation.</p>
-                <div class="blog-meta"><span>5 jan. 2026</span><span>·</span><span>4 min</span></div>
+            <a href="/articles/projet-archives-vienne" class="blog-card reveal-up reveal-d3">
+                <div class="blog-tag">Étude de cas · Résilience</div>
+                <h3>Projet : Archives départementales de la Vienne</h3>
+                <p>Découvrez comment nous avons accompagné les Archives départementales de la Vienne dans leur transition environnementale.</p>
+                <div class="blog-meta"><span>20 Mar 2026</span><span>·</span><span>4 min</span></div>
+            </a>
+            <a href="/articles/reporting-csrd" class="blog-card reveal-up reveal-d4">
+                <div class="blog-tag">Réglementation · CSRD</div>
+                <h3>Comprendre la CSRD et ses enjeux pour votre organisation</h3>
+                <p>La directive européenne sur le reporting extra-financier s'applique progressivement. Êtes-vous concernés et comment s'y préparer ?</p>
+                <div class="blog-meta"><span>10 Mar 2026</span><span>·</span><span>5 min</span></div>
             </a>
         </div>
         <div class="blog-footer reveal">
-            <a href="blog.html" class="btn-outline">Voir tous les articles &amp; échanger →</a>
+            <a href="/blog" class="btn-outline">Voir tous les articles →</a>
         </div>
     </section>
 
@@ -1435,7 +1325,7 @@
 
             <div class="contact-info reveal-left">
                 <h2>Discutons de votre projet environnemental</h2>
-                <p>Bilan carbone, schéma de résilience, conseil stratégique… Notre équipe vous répond sous 48h.</p>
+                <p>Calcul d'empreinte carbone, schéma de résilience, conseil stratégique… Notre équipe vous répond sous 48h.</p>
                 <div class="contact-links">
                     <a href="mailto:contact@helios-juniorconseil.com" class="contact-link">
                         <span class="contact-link-icon">✉</span>
@@ -1477,7 +1367,7 @@
                     <label for="f-sujet">Sujet</label>
                     <select id="f-sujet" name="sujet">
                         <option value="">Choisir un sujet…</option>
-                        <option value="Bilan Carbone">Bilan Carbone</option>
+                        <option value="Calcul d'empreinte carbone">Calcul d'empreinte carbone</option>
                         <option value="Schéma de Résilience">Schéma de Résilience</option>
                         <option value="Conseil Stratégique">Conseil Stratégique</option>
                         <option value="Partenariat">Partenariat</option>
@@ -1531,13 +1421,6 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 — Hélios Junior Conseil · École Nationale Supérieure d'Ingénieurs de Poitiers</p>
-            <nav class="footer-nav">
-                <a href="#expertises">Expertises</a>
-                <a href="#methode">Méthode</a>
-                <a href="#equipe">Équipe</a>
-                <a href="blog.html">Blog</a>
-                <a href="#contact">Contact</a>
-            </nav>
         </div>
     </footer>
 
@@ -1552,28 +1435,7 @@
         scrollBar.style.width = (window.scrollY / max * 100) + '%';
     }, { passive: true });
 
-    /* ---- Custom cursor (desktop uniquement) ---- */
-    const cur  = document.getElementById('cur');
-    const curF = document.getElementById('cur-f');
-    if (window.matchMedia('(pointer: fine)').matches) {
-        let mx = -100, my = -100, fx = -100, fy = -100;
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            cur.style.left = mx + 'px';
-            cur.style.top  = my + 'px';
-        });
-        (function animCursor() {
-            fx += (mx - fx) * 0.11;
-            fy += (my - fy) * 0.11;
-            curF.style.left = fx + 'px';
-            curF.style.top  = fy + 'px';
-            requestAnimationFrame(animCursor);
-        })();
-        document.querySelectorAll('a, button, .expertise-item, .blog-card, .methodo-step').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('cur-hover'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('cur-hover'));
-        });
-    }
+
 
     /* ---- Mobile menu ---- */
     const navToggle = document.getElementById('navToggle');
