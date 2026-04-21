@@ -10,6 +10,23 @@
     <link rel="icon" type="image/png" href="assets/favicon-h.png">
     <link rel="apple-touch-icon" href="assets/favicon-h.png">
 
+    <!-- Open Graph — partage réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://site-helios.vercel.app/contact">
+    <meta property="og:site_name" content="Hélios Junior Conseil">
+    <meta property="og:title" content="Contact | Hélios Junior Conseil">
+    <meta property="og:description" content="Contactez Hélios Junior Conseil pour un projet de calcul d'empreinte carbone, schéma de résilience ou conseil stratégique environnemental.">
+    <meta property="og:image" content="https://site-helios.vercel.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Hélios Junior Conseil — ENSIP Poitiers">
+    <meta property="og:locale" content="fr_FR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact | Hélios Junior Conseil">
+    <meta name="twitter:description" content="Contactez Hélios Junior Conseil pour un projet de calcul d'empreinte carbone, schéma de résilience ou conseil stratégique environnemental.">
+    <meta name="twitter:image" content="https://site-helios.vercel.app/assets/og-image.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
@@ -592,6 +609,7 @@
             <form class="contact-form reveal-right" id="contactForm"
                   action="https://formsubmit.co/ajax/contact@helios-juniorconseil.com"
                   method="POST">
+                <input type="hidden" name="_cc" value="ensip.helios@gmail.com">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="f-prenom">Prénom *</label>
